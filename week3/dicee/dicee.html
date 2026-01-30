@@ -1,1 +1,69 @@
-hi
+<!-- 
+ Name: Bryceson Gaoiran
+Date: January 27, 2026
+Title: Dicee Challenge - Completed
+Description: Completed Dicee Challenge project from App Brewery.
+Notes: All comments are AI generated for educational purposes.
+-->
+
+<!-- Document type declaration: tells the browser this is an HTML5 document -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Character encoding for correct text rendering -->
+    <meta charset="utf-8">
+    <!-- Page title shown in the browser tab -->
+    <title>Dicee</title>
+    <!-- Link to stylesheet for page styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Import Google Fonts used by the site -->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <!-- Main container that centers and constrains the page content -->
+    <div class="container">
+      <!-- Short guidance messages appear above the Play button -->
+      <div id="guide" style="margin-bottom:0.5rem; font-family: 'Indie Flower', cursive; color: #4ECCA3; font-size:1.5rem;">Click Play to roll</div>
+      <!-- Play button to roll the dice without refreshing (placed above results) -->
+      <button id="play-btn">Play</button>
+      <!-- Heading prompting the user to refresh to roll the dice -->
+      <h1>Refresh Me</h1>
+
+      <!-- First player's dice area -->
+      <div class="dice">
+        <!-- Label for player 1 -->
+        <p>Player 1</p>
+        <!-- Image for player 1's dice; class `img1` is used by JavaScript to update the image -->
+        <img class="img1" src="images/dice6.png">
+      </div>
+
+      <!-- Second player's dice area -->
+      <div class="dice">
+        <!-- Label for player 2 -->
+        <p>Player 2</p>
+        <!-- Image for player 2's dice; class `img2` is used by JavaScript to update the image -->
+        <img class="img2" src="images/dice6.png">
+      </div>
+ 
+      <!-- Third player's dice area -->
+      <div class="dice">
+        <!-- Label for player 3 -->
+        <p>Player 3</p>
+        <!-- Image for player 3's dice; class `img3` is used by JavaScript to update the image -->
+        <img class="img3" src="images/dice6.png">
+      </div>
+    </div>
+
+    <!-- JavaScript file that implements the dice roll logic and updates the page -->
+    <script src="index.js" charset="utf-8"></script>
+
+      </body>
+
+      <!-- Footer displayed at the bottom of the page -->
+      <footer>
+        www 🎲 App Brewery 🎲 com
+      </footer>
+    </html>
+
