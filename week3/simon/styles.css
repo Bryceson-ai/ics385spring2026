@@ -1,0 +1,103 @@
+body {
+  text-align: center;
+  background-color: #011F3F;
+  /* Add extra space at the bottom of the page so the page appears longer */
+  padding-bottom: 70px;
+}
+
+#level-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  margin:  5%;
+  color: #FEF2BF;
+}
+
+/* Instructions at top should match the heading color and font */
+#instructions {
+  font-family: 'Press Start 2P', cursive;
+  color: #FEF2BF;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Style for the Hard/Regular mode toggle button to match site text */
+#hard-btn {
+  font-family: 'Press Start 2P', cursive;
+  color: #FEF2BF;
+  background: transparent;
+  border: 2px solid #FEF2BF;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#hard-btn:focus {
+  outline: none;
+}
+
+/* Play button style — match Hard button / site text */
+#play-btn {
+  font-family: 'Press Start 2P', cursive;
+  color: #FEF2BF;
+  background: transparent;
+  border: 2px solid #FEF2BF;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#play-btn:focus { outline: none; }
+
+.container {
+  /* Use a fixed-width centered grid so the four pads form a square (2 columns x 2 rows).
+     Grid gap keeps spacing even. Using a fixed width close to two button widths
+     preserves the square layout while remaining centered. */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  width: 460px; /* two 200px buttons + borders and gap */
+  margin: auto;
+
+}
+
+.row { display: contents; } /* allow existing row wrappers to not interfere with grid */
+
+.btn {
+  /* grid gap handles spacing; remove inline margins */
+  margin: 0;
+  display: block;
+  height: 200px;
+  width: 200px;
+  border: 10px solid black;
+  border-radius: 20%;
+  box-sizing: border-box;
+}
+
+.game-over {
+  background-color: red;
+  opacity: 0.8;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.pressed {
+  box-shadow: 0 0 20px white;
+  background-color: grey;
+}
