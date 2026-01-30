@@ -1,1 +1,75 @@
+<!-- 
+ Name: Bryceson Gaoiran
+Date: January 27, 2026
+Title: Simon Game Challenge - Completed
+Description: Completed Simon Game Challenge project from App Brewery.
+Notes: All comments are AI generated for educational purposes.
+-->
+
+<!-- Document type declaration: HTML5 -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <!-- Character encoding for correct text rendering -->
+  <meta charset="utf-8">
+  <!-- Page title shown in the browser tab -->
+  <title>Simon</title>
+  <!-- Link to local stylesheet that defines the game's appearance -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Import a retro pixel font from Google Fonts used for headings -->
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Hard Level toggle moved to top -->
+  <div style="text-align:center; margin:1rem 0"><button id="hard-btn">Hard Level</button></div>
+  <!-- Play button to start the game (replaces keypress start) -->
+  <div style="text-align:center; margin:0.5rem 0"><button id="play-btn">Play</button></div>
+  <!-- Short instructions for how to play appear at the top of the page -->
+  <p id="instructions" style="text-align:center; margin:1rem 0; font-family: 'Press Start 2P', cursive; font-size:0.8rem;">Watch the sequence, then repeat it by clicking the colored pads.</p>
+  <!-- Main heading that displays the current level or instructions -->
+  <h1 id="level-title">Press A to Start</h1>
+  <!-- Container that holds the four colored game buttons -->
+  <div class="container">
+    <!-- Row: top two buttons (green and red) -->
+    <!-- Note: there is a small typo below (`lass` should be `class`) but JS selects buttons by id, so layout may still work depending on CSS. -->
+    <div class="row">
+
+      <!-- Green button: interactive game pad with id `green` used by the game logic -->
+      <div type="button" id="green" class="btn green">
+
+      </div>
+
+      <!-- Red button: interactive game pad with id `red` used by the game logic -->
+      <div type="button" id="red" class="btn red">
+
+      </div>
+    </div>
+
+    <!-- Row: bottom two buttons (yellow and blue) -->
+    <div class="row">
+
+      <!-- Yellow button: interactive game pad with id `yellow` -->
+      <div type="button" id="yellow" class="btn yellow">
+
+      </div>
+      <!-- Blue button: interactive game pad with id `blue` -->
+      <div type="button" id="blue" class="btn blue">
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- jQuery inclusion (used by the original tutorial/code) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Main game script that implements the Simon logic (sequence, input, sounds) -->
+  <script src="game.js" charset="utf-8"></script>
+
+
+</body>
+
+</html>
 
