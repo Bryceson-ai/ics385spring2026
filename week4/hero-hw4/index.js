@@ -1,12 +1,21 @@
 /*
   NOTE: All comments in this file were AI-generated.
   They are intended to explain what each section does and why.
+/*
+  Bryceson Gaoiran — 2026-02-03
+
+  Brief overview:
+  This script generates five pieces of content (hero, villain,
+  inspirational quote, popular movie quote, and famous last words),
+  writes each item to its own `.txt` file in this folder, and serves
+  a combined plain-text snapshot over a minimal HTTP server at
+  http://127.0.0.1:3000/. Values are chosen once at startup so the
+  files and HTTP response show the same snapshot for the lifetime
+  of the process.
+
+  Detailed explanatory comments follow below to clarify modules,
+  data sources, and file-write behavior.
 */
-
-//jshint esversion:6
-
-// Load small helper libraries that provide random names/quotes.
-// These are third-party packages (must be installed via npm).
 const superheroes = require('superheroes');
 const supervillains = require('supervillains');
 const Quote = require('inspirational-quotes');
