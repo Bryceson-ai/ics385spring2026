@@ -8,4 +8,7 @@ Setting up VS Code, GitHub, and CodePen
 Making my bio HTML
 
 # Week 3 - Javascript
+Extending and improving game code
 
+# Week 4 - NodeJS
+Using Node and extending code
