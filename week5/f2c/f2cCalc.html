@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>F2C Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      input {
+        margin: 6px 0;
+        padding: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>F2C Converter</h1>
+
+    <!-- GET form: accepts one integer Fahrenheit value via query string -->
+    <form action="/f2c" method="get">
+      <label for="fget">Fahrenheit (GET):</label>
+      <input
+        id="fget"
+        name="fahrenheit"
+        type="number"
+        step="1"
+        placeholder="Enter integer"
+        required
+      />
+      <button type="submit">Send (GET)</button>
+    </form>
+
+    <hr />
+
+    <!-- POST form: conversion occurs on submit -->
+    <form action="/f2c" method="post">
+      <label for="fpost">Fahrenheit (POST):</label>
+      <input
+        id="fpost"
+        name="fahrenheit"
+        type="number"
+        step="1"
+        placeholder="Enter integer"
+        required
+      />
+      <button type="submit">Convert</button>
+      <br />
+      <label for="result">Centigrade (integer):</label>
+      <input
+        id="result"
+        name="centigrade"
+        type="text"
+        readonly
+        placeholder="Result will appear here"
+      />
+    </form>
+
+    <script>
+      // Client-side conversion: populate fields from query, and handle both forms
+      (function () {
+        function qs() {
+          const pairs = location.search.slice(1).split("&").filter(Boolean);
+          const obj = {};
+          for (const p of pairs) {
+            const [k, v] = p.split("=");
+            obj[decodeURIComponent(k)] = decodeURIComponent(v || "");
+          }
+          return obj;
+        }
+
+        function fToC(f) {
+          return Math.round((Number(f) - 32) * 5 / 9);
+        }
+
+        const params = qs();
+        const fget = document.getElementById("fget");
+        const fpost = document.getElementById("fpost");
+        const result = document.getElementById("result");
+
+        if (params.fahrenheit) {
+          const f = params.fahrenheit;
+          const c = params.centigrade || "";
+          if (fget) fget.value = f;
+          if (fpost) fpost.value = f;
+          if (result && c !== "") result.value = c;
+        }
+
+        const getForm = document.querySelector('form[method="get"]');
+        const postForm = document.querySelector('form[method="post"]');
+
+        if (getForm) {
+          getForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const f = this.elements.fahrenheit.value;
+            if (f === "") return;
+            const c = fToC(f);
+            // Navigate to same page with query params so fields populate
+            location.href = location.pathname + '?fahrenheit=' + encodeURIComponent(f) + '&centigrade=' + encodeURIComponent(c);
+          });
+        }
+
+        if (postForm) {
+          postForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const f = this.elements.fahrenheit.value;
+            if (f === "") return;
+            const c = fToC(f);
+            if (result) result.value = c;
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
