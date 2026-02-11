@@ -1,1 +1,130 @@
+/* 
+Author: Bryceson Gaoiran 
+Date: 02/10/2026 
+Overview: Calculates the volume of a cylinder with the radius and height provided by the user.
+*/
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Volume Cylinder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 24px;
+        background: #f5f7fb;
+      }
+      .card {
+        max-width: 520px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 18px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .hint {
+        margin: 8px 0 14px;
+        color: #333;
+      }
+      .notice {
+        display: none;
+        margin: 12px 0;
+        padding: 10px;
+        border-radius: 6px;
+        background: #fff2cc;
+        border: 1px solid #e2c76a;
+      }
+      label {
+        display: block;
+        margin: 10px 0 4px;
+        font-weight: 600;
+      }
+      input {
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 14px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+      .result {
+        display: none;
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        background: #f8fafc;
+      }
+      .result strong {
+        font-size: 20px;
+        color: #0b5394;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Volume Cylinder</h1>
+      <p class="hint">Enter radius and height, then click Calculate.</p>
+
+      <div id="previewNotice" class="notice">
+        You are viewing this file directly. To use server routes, run
+        <code>npm start</code> in <code>VolCalc</code> and open
+        <code>http://localhost:3000/VolCalc</code>. Local preview calculation still works below.
+      </div>
+
+      <form id="calcForm">
+        <label for="radius">Radius</label>
+        <input id="radius" name="radius" type="number" step="any" required />
+        <label for="height">Height</label>
+        <input id="height" name="height" type="number" step="any" required />
+        <button id="calculateBtn" type="button">Calculate</button>
+      </form>
+
+      <div id="localResult" class="result"></div>
+    </div>
+
+    <script>
+      (function () {
+        var notice = document.getElementById("previewNotice");
+        var resultBox = document.getElementById("localResult");
+        var isFileMode = window.location.protocol === "file:";
+
+        if (isFileMode) {
+          notice.style.display = "block";
+        }
+
+        document
+          .getElementById("calculateBtn")
+          .addEventListener("click", function () {
+            var r = parseFloat(document.getElementById("radius").value);
+            var h = parseFloat(document.getElementById("height").value);
+
+            if (Number.isNaN(r) || Number.isNaN(h)) {
+              resultBox.style.display = "block";
+              resultBox.innerHTML = "Please enter valid numeric values.";
+              return;
+            }
+
+            var volume = Math.PI * Math.pow(r, 2) * h;
+            var formatted = volume.toFixed(2);
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML =
+              "Radius: " +
+              r +
+              "<br>Height: " +
+              h +
+              "<br><strong>Volume = " +
+              formatted +
+              " cubic units</strong>";
+          });
+      })();
+    </script>
+  </body>
+</html>
 
