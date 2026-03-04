@@ -75,6 +75,7 @@ LOG_LEVEL=info
 
 3. Start a local static server and open `index.html`.
 4. Use **Settings** / API modal to enter keys for browser runtime testing.
+5. `.env` is excluded from version control by `.gitignore`; only `.env.example` should be committed.
 
 > Note: This project is browser-based. `.env` is included for assignment/security documentation and backend-ready configuration patterns. Client-only apps cannot fully hide API keys.
 
