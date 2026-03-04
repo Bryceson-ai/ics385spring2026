@@ -1,0 +1,7 @@
+# Environment variable files
+.env
+**/.env
+
+# Keep safe templates in source control
+!.env.example
+**/.env.example
