@@ -1,0 +1,77 @@
+{
+"university": "University of Hawaii Maui College",
+"semester": "Spring 2026",
+"lastUpdated": "2026-03-03",
+"departments": [
+{
+"code": "ICS",
+"name": "Information and Computer Sciences",
+"chair": "Dr. Jane Smith",
+"courses": [
+{
+"courseCode": "ICS 385",
+"title": "Web Development and Administration",
+"credits": 3,
+"description": "Detailed knowledge of web page authoring and server-side programming.",
+"prerequisites": ["ICS 320"],
+"instructor": {
+"name": "Dr. Debasis Bhattacharya",
+"email": "debasisb@hawaii.edu",
+"office": "Kaaike 114"
+},
+"schedule": {
+"days": ["Tuesday"],
+"time": "4:30 PM - 5:45 PM",
+"location": "Online (Zoom)",
+"capacity": 25,
+"enrolled": 18
+},
+"isActive": true,
+"topics": ["HTML", "CSS", "JavaScript", "Node.js", "APIs", "React"],
+"assignments": [
+{"name": "Week 1 - Setup", "points": 1, "dueDate": "2026-01-19"},
+{"name": "Week 2 - HTML/CSS", "points": 3, "dueDate": "2026-01-26"}
+]
+}
+]
+},
+{
+"code": "MATH",
+"name": "Mathematics",
+"chair": "Dr. Robert Johnson",
+"courses": [
+{
+"courseCode": "MATH 140",
+"title": "Calculus I",
+"credits": 4,
+"description": "Limits, derivatives, applications of derivatives.",
+"prerequisites": ["MATH 135"],
+"instructor": {
+"name": "Dr. Sarah Wilson",
+"email": "sarahw@hawaii.edu",
+"office": "Academic Center 201"
+},
+"schedule": {
+"days": ["Monday", "Wednesday", "Friday"],
+"time": "10:00 AM - 10:50 AM",
+"location": "AC 105",
+"capacity": 30,
+"enrolled": 25
+},
+"isActive": true,
+"topics": ["Limits", "Derivatives", "Integration", "Applications"],
+"assignments": [
+{"name": "Homework 1", "points": 10, "dueDate": "2026-01-20"},
+{"name": "Midterm Exam", "points": 100, "dueDate": "2026-03-15"}
+]
+}
+]
+}
+],
+"metadata": {
+"totalCourses": 15,
+"totalDepartments": 6,
+"totalCreditsOffered": 45,
+"academicYear": "2025-2026"
+}
+}
