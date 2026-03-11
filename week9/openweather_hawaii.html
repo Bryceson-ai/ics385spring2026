@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hawaii Current Weather - OpenWeather</title>
+  <style>
+    :root {
+      --bg: #f2f7ff;
+      --card: #ffffff;
+      --text: #102a43;
+      --muted: #486581;
+      --accent: #0b7285;
+      --accent-hover: #095c6b;
+      --border: #d9e2ec;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top right, #d6efff 0%, var(--bg) 45%, #e9f5f2 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(700px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(16, 42, 67, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin-top: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      margin-top: 6px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .status {
+      margin-top: 10px;
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .result {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: none;
+    }
+
+    .result-row {
+      margin: 6px 0;
+      font-size: 1.05rem;
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      vertical-align: middle;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fbff;
+    }
+
+    @media (max-width: 620px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Current Weather in Hawaii</h1>
+    <p>
+      Enter latitude and longitude in decimal degrees (as strings), then load current weather.
+    </p>
+
+    <div class="grid">
+      <div>
+        <label for="latInput">Latitude (string)</label>
+        <input id="latInput" type="text" value="20.87" />
+      </div>
+      <div>
+        <label for="lonInput">Longitude (string)</label>
+        <input id="lonInput" type="text" value="-156.45" />
+      </div>
+    </div>
+
+    <button id="loadBtn" class="btn">Get Weather</button>
+    <div id="status" class="status"></div>
+
+    <section id="result" class="result" aria-live="polite">
+      <div class="result-row"><strong>Description:</strong> <span id="description"></span></div>
+      <div class="result-row"><strong>Temp:</strong> <span id="temp"></span></div>
+      <div class="result-row"><strong>Icon:</strong> <img id="icon" class="icon" alt="Weather icon" /></div>
+      <div class="result-row"><strong>Humidity:</strong> <span id="humidity"></span></div>
+      <div class="result-row"><strong>Wind Speed:</strong> <span id="windSpeed"></span></div>
+      <div class="result-row"><strong>Cloudiness:</strong> <span id="cloudiness"></span></div>
+    </section>
+  </main>
+
+  <script>
+    const latInput = document.getElementById("latInput");
+    const lonInput = document.getElementById("lonInput");
+    const loadBtn = document.getElementById("loadBtn");
+    const statusEl = document.getElementById("status");
+    const resultEl = document.getElementById("result");
+
+    const descriptionEl = document.getElementById("description");
+    const tempEl = document.getElementById("temp");
+    const iconEl = document.getElementById("icon");
+    const humidityEl = document.getElementById("humidity");
+    const windSpeedEl = document.getElementById("windSpeed");
+    const cloudinessEl = document.getElementById("cloudiness");
+
+    async function loadWeather() {
+      const latitude = latInput.value.trim();
+      const longitude = lonInput.value.trim();
+
+      if (!latitude || !longitude) {
+        statusEl.textContent = "Please provide both latitude and longitude.";
+        resultEl.style.display = "none";
+        return;
+      }
+
+      statusEl.textContent = "Loading weather...";
+
+      try {
+        const url = `/api/weather?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          const detail = errData.error ? ` - ${errData.error}` : "";
+          throw new Error(`HTTP ${response.status}${detail}`);
+        }
+
+        const data = await response.json();
+
+        const weather = data.weather && data.weather.length > 0 ? data.weather[0] : null;
+
+        descriptionEl.textContent = weather ? weather.description : "N/A";
+        tempEl.textContent = data.main && typeof data.main.temp === "number" ? `${data.main.temp} F` : "N/A";
+
+        if (weather && weather.icon) {
+          iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+        } else {
+          iconEl.removeAttribute("src");
+        }
+
+        humidityEl.textContent = data.main && typeof data.main.humidity === "number" ? `${data.main.humidity}%` : "N/A";
+        windSpeedEl.textContent = data.wind && typeof data.wind.speed === "number" ? `${data.wind.speed} mph` : "N/A";
+        cloudinessEl.textContent = data.clouds && typeof data.clouds.all === "number" ? `${data.clouds.all}%` : "N/A";
+
+        resultEl.style.display = "block";
+        statusEl.textContent = "Weather loaded successfully.";
+      } catch (error) {
+        resultEl.style.display = "none";
+        statusEl.textContent = `Could not load weather. ${error.message}`;
+      }
+    }
+
+    loadBtn.addEventListener("click", loadWeather);
+  </script>
+</body>
+</html>
