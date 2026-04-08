@@ -1,0 +1,109 @@
+:root {
+  color: #102542;
+  background: linear-gradient(180deg, #dff6ff 0%, #fdf6e3 100%);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 48px 20px 64px;
+}
+
+.page-header {
+  margin: 0 auto 32px;
+  max-width: 760px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #0077b6;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #023047;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+.intro {
+  margin: 14px auto 0;
+  max-width: 620px;
+  color: #30536b;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.island-card {
+  padding: 24px;
+  border: 1px solid rgba(2, 48, 71, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 16px 40px rgba(2, 48, 71, 0.12);
+}
+
+.card-label {
+  margin: 0 0 8px;
+  color: #219ebc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.island-card h2 {
+  margin: 0 0 12px;
+  color: #0b3c5d;
+  font-size: 1.6rem;
+}
+
+.card-description,
+.card-tip {
+  margin: 0;
+  color: #25465c;
+  line-height: 1.65;
+}
+
+.card-tip {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(2, 48, 71, 0.12);
+}
+
+.card-tip span {
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 32px 16px 48px;
+  }
+
+  .island-card {
+    padding: 20px;
+  }
+}
