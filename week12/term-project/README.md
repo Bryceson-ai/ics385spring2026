@@ -263,34 +263,6 @@ The Express server and MongoDB schema built in Week 11 defined the Property mode
 
 ---
 
-## How to Take a Screenshot for Submission
-
-1. **Start the dev server:**
-   ```bash
-   cd week12/term-project
-   npm run dev
-   ```
-
-2. **Open the page:**
-   - Visit `http://localhost:5173/` in your browser.
-
-3. **Take a screenshot:**
-   - Capture the full page at desktop width (preferred) or mobile view.
-   - On Windows: `Windows Key + Shift + S` to use the Snip tool.
-   - On Mac: `Cmd + Shift + 4` for full-window capture.
-
-4. **Save to `docs/`:**
-   - Save the image as `week12/term-project/docs/screenshot.png` (or `.jpg`).
-
-5. **Commit and push:**
-   ```bash
-   git add .
-   git commit -m "Week 12: React marketing page with responsive design and accessibility"
-   git push origin main
-   ```
-
----
-
 ## Questions & Support
 
 For questions about component implementation, data flow, or Week 13 integration:
