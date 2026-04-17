@@ -1,0 +1,5 @@
+[
+  { "island": "Maui", "usDomestic": 54, "japan": 8, "canada": 21, "otherInternational": 17 },
+  { "island": "O'ahu", "usDomestic": 49, "japan": 17, "canada": 10, "otherInternational": 24 },
+  { "island": "Kaua'i", "usDomestic": 61, "japan": 5, "canada": 14, "otherInternational": 20 }
+]

@@ -1,0 +1,17 @@
+[
+  { "island": "Maui", "year": 2021, "avgStay": 6.2 },
+  { "island": "Maui", "year": 2022, "avgStay": 6.6 },
+  { "island": "Maui", "year": 2023, "avgStay": 6.9 },
+  { "island": "Maui", "year": 2024, "avgStay": 7.1 },
+  { "island": "Maui", "year": 2025, "avgStay": 7.0 },
+  { "island": "O'ahu", "year": 2021, "avgStay": 5.0 },
+  { "island": "O'ahu", "year": 2022, "avgStay": 5.2 },
+  { "island": "O'ahu", "year": 2023, "avgStay": 5.5 },
+  { "island": "O'ahu", "year": 2024, "avgStay": 5.7 },
+  { "island": "O'ahu", "year": 2025, "avgStay": 5.6 },
+  { "island": "Kaua'i", "year": 2021, "avgStay": 5.8 },
+  { "island": "Kaua'i", "year": 2022, "avgStay": 6.0 },
+  { "island": "Kaua'i", "year": 2023, "avgStay": 6.2 },
+  { "island": "Kaua'i", "year": 2024, "avgStay": 6.4 },
+  { "island": "Kaua'i", "year": 2025, "avgStay": 6.3 }
+]
