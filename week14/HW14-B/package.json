@@ -1,0 +1,16 @@
+{
+  "name": "week14b-passport-auth-demo",
+  "version": "1.0.0",
+  "description": "Standalone Express authentication demo with Passport LocalStrategy and bcrypt",
+  "main": "Passport.js",
+  "scripts": {
+    "start": "node Passport.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}
