@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials-head') %>
+  </head>
+  <body class="auth-page">
+    <main class="auth-shell wide-shell">
+      <section class="auth-card panel wide-card">
+        <p class="eyebrow">Protected admin action</p>
+        <h1>Add property</h1>
+
+        <% if (errors && errors.length) { %>
+          <div class="alert">
+            <% errors.forEach((error) => { %>
+              <p><%= error.msg %></p>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <form method="post" action="/admin/properties" class="property-form">
+          <label>Name<input type="text" name="name" value="<%= formData.name || '' %>" required /></label>
+          <label>Island
+            <select name="island">
+              <% ['Maui', "O'ahu", "Kaua'i", 'Hawaii Island', 'Molokai', 'Lanai'].forEach((island) => { %>
+                <option value="<%= island %>" <%= formData.island === island ? 'selected' : '' %>><%= island %></option>
+              <% }) %>
+            </select>
+          </label>
+          <label>Type
+            <select name="type">
+              <% ['vacation rental', 'hotel'].forEach((type) => { %>
+                <option value="<%= type %>" <%= formData.type === type ? 'selected' : '' %>><%= type %></option>
+              <% }) %>
+            </select>
+          </label>
+          <label>Description<textarea name="description" rows="4" required><%= formData.description || '' %></textarea></label>
+          <label>Amenities (comma separated)<input type="text" name="amenities" value="<%= formData.amenities || '' %>" required /></label>
+          <label>Target segment<input type="text" name="targetSegment" value="<%= formData.targetSegment || '' %>" required /></label>
+          <label>Image URL<input type="url" name="imageURL" value="<%= formData.imageURL || '' %>" required /></label>
+          <div class="hero-actions">
+            <button class="button button-primary" type="submit">Save Property</button>
+            <a class="button button-secondary" href="/admin/dashboard">Cancel</a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

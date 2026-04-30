@@ -1,0 +1,37 @@
+{
+  "name": "hawaii-hospitality-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ICS 385 final term project with marketing page, visitor dashboard, and local plus Google authentication.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.13.2",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["<rootDir>/tests/**/*.test.js"],
+    "modulePaths": [
+      "<rootDir>/Term3Project/node_modules",
+      "<rootDir>/week15/hw15a/node_modules"
+    ]
+  }
+}
