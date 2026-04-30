@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        background: linear-gradient(135deg, #f4efe6 0%, #d7e3f1 100%);
+        color: #1f2a35;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid #aebecf;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin-top: 0;
+        letter-spacing: 1px;
+      }
+
+      .property {
+        margin-bottom: 16px;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid #c6d1dc;
+        background: #ffffff;
+      }
+
+      .meta {
+        color: #47596d;
+        font-size: 14px;
+      }
+
+      .empty {
+        padding: 20px;
+        border: 1px dashed #7f94ac;
+        border-radius: 10px;
+        background: #f8fbff;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Hawaii Properties</h1>
+
+      <% if (properties.length === 0) { %>
+        <section class="empty">No properties matched your filter.</section>
+      <% } %>
+
+      <% properties.forEach((property) => { %>
+        <article class="property">
+          <h2><%= property.name %></h2>
+          <p class="meta"><strong>Island:</strong> <%= property.island %> | <strong>Type:</strong> <%= property.type %></p>
+          <p><%= property.description %></p>
+          <p class="meta"><strong>Reviews:</strong> <%= property.reviews.length %></p>
+        </article>
+      <% }) %>
+    </main>
+  </body>
+</html>

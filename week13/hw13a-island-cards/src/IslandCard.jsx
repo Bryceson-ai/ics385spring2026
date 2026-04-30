@@ -1,4 +1,4 @@
-export default function IslandCard({ name, nickname, segment, avgStay, img }) {
+﻿export default function IslandCard({ name, nickname, segment, avgStay, img }) {
   return (
     <article className="island-card">
       <img src={img} alt={`${name} - ${nickname} island photo`} />

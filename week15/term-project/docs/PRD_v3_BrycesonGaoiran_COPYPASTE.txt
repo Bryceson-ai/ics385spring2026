@@ -1,0 +1,162 @@
+PRODUCT REQUIREMENTS DOCUMENT (PRD v3)
+
+1. COVER
+
+Project Name: Maui Luxury Vacation Rentals Dashboard
+Student: Bryceson Gaoiran
+Island: Maui
+Target Visitor Segment: Canadian travelers escaping winter
+Live Deployment URL: [PASTE LIVE URL]
+GitHub URL: [PASTE REPO URL]
+Document Version: v3 - May 1, 2026
+Date: [PASTE DATE]
+
+2. PROBLEM STATEMENT AND TARGET USER
+
+Problem Statement
+The application solves two connected problems: a visitor decision problem and an operator planning problem. Visitors need to quickly evaluate rental options, pricing context, and trust signals before committing to a booking inquiry. The property operator needs one consolidated experience for demand visibility, route-level protection, and secure access to admin tools that affect listing quality and business outcomes.
+
+Target User
+The primary user is a Canadian traveler planning a Maui trip during winter months, typically comparing value, comfort, and location before booking. The secondary user is the local property admin who must securely manage listing content, monitor dashboard signals, and maintain data integrity without exposing admin functions to public visitors.
+
+3. FUNCTIONAL REQUIREMENTS
+
+R1. Public marketing page loads with brand identity, hero section, and amenities.
+R2. Visitor dashboard displays three Chart.js visualizations with non-empty data.
+R3. Local sign-up and sign-in support email and password login.
+R4. Passwords are stored as bcrypt hashes, never plaintext.
+R5 [NEW v3]. Google OAuth 2.0 sign-in is available via Passport.
+R6 [NEW v3]. Account linking follows find-or-link-or-create rules.
+R7 [NEW v3]. Admin routes are protected with authentication middleware.
+R8 [NEW v3]. Session cookies use secure attributes and 14-day TTL policy.
+R9 [NEW v3]. Secret management uses environment variables with committed .env.example only.
+
+4. TECHNICAL ARCHITECTURE
+
+Stack
+Frontend: React, Vite, Chart.js
+Backend: Node.js, Express
+Database: MongoDB, Mongoose
+Authentication: Passport LocalStrategy and passport-google-oauth20
+Session Management: express-session with connect-mongo
+
+Request Flow
+Visitor requests public routes such as / and /dashboard.
+If admin functionality is requested, user goes through /login or /auth/google.
+Passport validates local or Google credentials.
+On success, session is created and stored in MongoDB session store.
+Protected routes under /admin require authentication middleware.
+API and admin operations read/write data in MongoDB.
+
+5. AUTHENTICATION AND SECURITY
+
+5.1 Authentication strategies
+The application supports two strategies: local email/password and Google OAuth 2.0. Local login supports direct account management and fallback if OAuth is unavailable. Google sign-in reduces friction and increases convenience for visitors who already trust Google accounts.
+
+5.2 User data model
+User schema fields are: email, displayName, password (nullable), googleId, provider, role, createdAt.
+email is unique and indexed for login lookup.
+googleId is indexed and unique when present to prevent duplicate OAuth identities.
+password is nullable for Google-only users.
+role supports authorization policies (user/admin).
+
+5.3 Account linking
+Account linking uses find-or-link-or-create:
+1) Match by googleId first.
+2) If no googleId match, match by verified email and attach googleId/provider.
+3) If no match, create a new user record.
+This prevents duplicate accounts while supporting either login method.
+
+5.4 Session management
+Sessions use express-session with connect-mongo. Session TTL is 14 days. Cookies are configured with httpOnly true, sameSite enabled, and secure true in production. Unauthenticated or expired sessions cannot access protected admin routes.
+
+5.5 Secret handling
+Secrets are stored in .env, which is git-ignored. A safe .env.example is committed to document required variables. dotenv loads values at process start.
+Required variables: MONGO_URI, SESSION_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, PORT.
+
+5.6 Protected routes
+Protected routes include all admin functions, including:
+GET /admin/dashboard
+GET /admin/properties/new
+POST /admin/properties
+GET /admin/properties/:id/edit
+POST /admin/properties/:id
+These routes are guarded by ensureAuthenticated middleware. Unauthenticated requests are redirected to /login.
+
+5.7 OWASP threat mitigation mapping
+A01 Broken Access Control: mitigated by route guards, role checks, and protected admin namespace.
+A02 Cryptographic Failures: mitigated by bcrypt password hashing, secure cookies, and HTTPS in production.
+A07 Identification and Authentication Failures: mitigated by Passport verification flow, session expiration policy, and generic login error responses.
+
+6. ACCEPTANCE CRITERIA AND TEST SCRIPTS
+
+6.1 Given-When-Then acceptance criteria
+
+AC-1 Public marketing page
+Given any visitor
+When they request GET /
+Then page returns HTTP 200 and shows property name, hero image, and at least three amenities.
+
+AC-2 Visitor dashboard
+Given any visitor
+When they request GET /dashboard
+Then three Chart.js visualizations render with non-empty data.
+
+AC-3 Local sign-up
+Given a new email
+When POST /register is submitted with valid email and password length at least 8
+Then HTTP 302 redirects to /admin/dashboard, user record is created, and password is bcrypt-hashed.
+
+AC-4 Local sign-in
+Given a registered user
+When POST /login is submitted with correct credentials
+Then HTTP 302 redirects to /admin/dashboard and a session cookie is set.
+
+AC-5 Google OAuth sign-in
+Given a user with a Google account
+When they choose Sign in with Google and complete consent
+Then HTTP 302 redirects to /admin/dashboard and user record includes googleId with provider set to google.
+
+AC-6 Protected route guard
+Given an unauthenticated visitor
+When they request GET /admin/dashboard
+Then HTTP 302 redirects to /login and no admin content is rendered.
+
+AC-7 Logout
+Given an authenticated user
+When they submit POST /logout
+Then session is cleared and next request to protected route redirects to /login.
+
+AC-8 Secret hygiene
+Given the deployed project repository
+When files are inspected
+Then .env is not committed, .env.example is present, and no keys appear in tracked files.
+
+6.2 Automated test scripts
+
+Automated tests are implemented in tests/auth.test.js using Jest and Supertest.
+Minimum mapped tests:
+AC-3 test for registration redirect and hashed password persistence check.
+AC-4 test for successful local login and session cookie set.
+AC-5 test for OAuth callback success path (with mock strategy/test harness).
+AC-6 test for protected route redirect when unauthenticated.
+AC-7 test for logout session teardown.
+
+Evidence requirement
+Embed one screenshot of passing tests in this document.
+Screenshot file: jest-auth-tests-green.png
+
+7. AI ATTRIBUTION
+
+AI tools were used only for grammar and formatting cleanup.
+All requirements, architecture decisions, security controls, and acceptance criteria were authored by Bryceson Gaoiran.
+
+SUBMISSION CHECKLIST
+
+[ ] PDF named PRD_v3_GaoiranBryceson.pdf (or instructor-required naming)
+[ ] Editable source committed to week15/term-project/docs/
+[ ] Section 5 includes all seven authentication/security answers
+[ ] Section 6 includes at least 6 Given-When-Then criteria
+[ ] At least 3 Jest/Supertest tests are included and mapped to acceptance criteria
+[ ] Passing test screenshot is embedded
+[ ] Cover includes version label v3 - May 1, 2026

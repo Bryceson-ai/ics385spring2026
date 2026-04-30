@@ -1,0 +1,324 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background: #f3f4f6;
+	color: #111827;
+}
+
+.dashboard-header,
+footer {
+	background: #0f172a;
+	color: #fff;
+}
+
+.header-content,
+.dashboard-grid,
+footer p {
+	max-width: 1180px;
+	margin: 0 auto;
+}
+
+.dashboard-header {
+	padding: 16px;
+}
+
+.header-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+}
+
+.header-content h1 {
+	margin: 0;
+	font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+}
+
+.header-controls {
+	display: flex;
+	gap: 8px;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+button {
+	background: #2563eb;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 12px;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #1d4ed8;
+}
+
+button:disabled {
+	cursor: not-allowed;
+	background: #9ca3af;
+}
+
+.dashboard-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 14px;
+	padding: 16px;
+}
+
+.stats-overview {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.stat-card,
+.dashboard-widget {
+	background: #fff;
+	border-radius: 10px;
+	border: 1px solid #e5e7eb;
+	padding: 12px;
+}
+
+.stat-card {
+	text-align: center;
+}
+
+.stat-number {
+	display: block;
+	font-weight: 700;
+	font-size: 1.2rem;
+}
+
+.stat-label {
+	color: #4b5563;
+	font-size: 0.9rem;
+}
+
+.weather-widget,
+.humor-widget,
+.actions-widget {
+	grid-column: span 4;
+}
+
+.course-widget {
+	grid-column: span 8;
+}
+
+.widget-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.widget-header h3,
+.widget-header h4,
+.widget-header p {
+	margin: 0;
+}
+
+.widget-controls {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+input,
+select,
+textarea {
+	border: 1px solid #d1d5db;
+	border-radius: 8px;
+	min-height: 40px;
+	padding: 8px 10px;
+}
+
+.courses-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.course-card {
+	border: 1px solid #e5e7eb;
+	border-radius: 10px;
+	padding: 10px;
+	background: #f9fafb;
+}
+
+.course-card h4,
+.course-card p {
+	margin: 0 0 6px;
+}
+
+.course-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.course-actions button {
+	flex: 1;
+}
+
+.enrollment {
+	border-radius: 6px;
+	padding: 6px 8px;
+	font-weight: 700;
+}
+
+.enrollment.open {
+	background: #dcfce7;
+	color: #166534;
+}
+
+.enrollment.filling {
+	background: #fef3c7;
+	color: #92400e;
+}
+
+.enrollment.full {
+	background: #fee2e2;
+	color: #991b1b;
+}
+
+.humor-content,
+.weather-content {
+	display: grid;
+	gap: 10px;
+}
+
+.joke-section {
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 10px;
+}
+
+.actions-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+
+.loading,
+.no-results {
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 14px;
+	text-align: center;
+	grid-column: 1 / -1;
+}
+
+.status-message {
+	max-width: 1180px;
+	margin: 10px auto 0;
+	padding: 10px 12px;
+	border-radius: 8px;
+	font-weight: 700;
+}
+
+.status-message.success {
+	background: #dcfce7;
+	color: #166534;
+}
+
+.status-message.error {
+	background: #fee2e2;
+	color: #991b1b;
+}
+
+.modal {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(15, 23, 42, 0.6);
+	padding: 14px;
+	z-index: 1000;
+}
+
+.hidden {
+	display: none;
+}
+
+.modal-content {
+	width: min(760px, 100%);
+	max-height: 90vh;
+	overflow: auto;
+	background: #fff;
+	border-radius: 10px;
+	padding: 16px;
+}
+
+.form-grid {
+	display: grid;
+	gap: 8px;
+}
+
+.modal-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 8px;
+}
+
+.secondary-btn {
+	background: #4b5563;
+}
+
+.secondary-btn:hover {
+	background: #374151;
+}
+
+footer {
+	margin-top: 16px;
+	padding: 14px 16px;
+}
+
+footer p {
+	margin: 0;
+}
+
+@media (max-width: 1024px) {
+	.course-widget,
+	.weather-widget,
+	.humor-widget,
+	.actions-widget {
+		grid-column: 1 / -1;
+	}
+
+	.stats-overview {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 640px) {
+	.header-content {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.header-controls,
+	.actions-grid,
+	.course-actions,
+	.modal-actions,
+	.widget-controls,
+	.courses-grid,
+	.stats-overview {
+		grid-template-columns: 1fr;
+		display: grid;
+	}
+}

@@ -1,0 +1,215 @@
+PRD v2.0 - Week 13 Update
+Maui Luxury Vacation Rentals Dashboard
+Student: Bryceson Gaoiran
+Date: April 17, 2026
+============================================================
+
+SECTION 1: PROPERTY AND AUDIENCE
+
+Property Name: Maui Luxury Vacation Rentals Dashboard
+Island: Maui
+Property Type: Vacation Rental (Airbnb-style)
+Target Segment: Canadian travelers escaping winter
+
+This project is a React application for a small group of Maui vacation rentals.
+The primary audience is Canadian couples and small families from cities such as
+Vancouver, Calgary, and Toronto who usually book 5-10 night trips between
+November and March. They compare value, comfort, and location before booking.
+Compared to v1.0, the audience is unchanged. v2.0 expands the product with a
+statistics dashboard, island filtering, and weather context so both guests and
+the property operator can make faster decisions.
+
+SECTION 2: PROBLEM STATEMENT
+
+The app solves two connected problems.
+
+Operator problem: Kai manages five properties but currently compares pricing,
+stay duration, and demand manually. He needs one dashboard view to support
+pricing and minimum-night decisions during peak Canadian season.
+
+Visitor problem: A Canadian traveler (for example, Claire from Vancouver) needs
+to compare listings quickly and understand likely weather conditions before
+booking. A marketing page alone explains the brand but does not provide side-by-
+side comparison or simple data visuals.
+
+v2.0 addresses this by pairing the existing marketing page with a data-driven
+dashboard focused on rates, stay behavior, seasonality, and weather.
+
+SECTION 3: MARKETING PAGE STATUS (FROM v1.0)
+
+The marketing page is complete in week12/term-project and remains stable in
+v2.0. It uses six React components: Header, HeroSection, About, Amenities,
+CTASection, and Footer.
+
+Current behavior:
+- Hero presents property identity and positioning.
+- About explains value for Canadian guests.
+- Amenities renders cards with map().
+- CTA includes Contact Us and View More Listings actions.
+
+Technical notes:
+- Layout uses CSS Grid/Flexbox with mobile-first responsiveness.
+- Percent-based sizing and clamp() improve readability.
+- Content is readable at 375px and desktop widths.
+- CTA dashboard link is still a placeholder and will be routed in Week 14.
+
+SECTION 4: DASHBOARD DESIGN
+
+The Visitor Statistics Dashboard uses three Chart.js visualizations.
+
+Wireframe (simplified):
+
+  +---------------------------+  +------------------------------+
+  | Bar: Nightly Rate         |  | H-Bar: Avg Stay by Segment   |
+  +---------------------------+  +------------------------------+
+  +--------------------------------------------------------------+
+  | Line: Monthly Arrivals (Canada vs Total)                     |
+  +--------------------------------------------------------------+
+
+Chart 1: Nightly Rate by Property (Bar)
+- Data source: MongoDB properties collection via GET /api/properties
+- Key field: nightlyRate
+- Purpose: lets guests compare value quickly before opening detail pages.
+
+Chart 2: Average Stay by Visitor Segment (Horizontal Bar)
+- Data source: DBEDT visitor statistics
+- Key fields: VisitorOrigin, AverageNightsStayed
+- Purpose: shows whether Canadian travelers stay longer, supporting policy
+  choices such as minimum-night settings.
+
+Chart 3: Monthly Arrivals (Line)
+- Data source: DBEDT monthly arrivals
+- Key fields: Month, TotalArrivals, CanadaArrivals
+- Purpose: exposes seasonality, especially winter demand spikes that justify
+  targeted marketing and dynamic pricing.
+
+SECTION 5: ISLAND SELECTOR UX
+
+Control: dropdown select.
+
+Why dropdown:
+- Works reliably on mobile where tabs can overflow.
+- Reuses interaction pattern from the Week 13 island assignment.
+- Avoids extra dependency complexity from map-based selection.
+
+State ownership:
+- selectedIsland is managed in DashboardPage via useState.
+- DashboardPage is the common parent for all components that consume this state.
+
+Re-render behavior on island change:
+- WeatherWidget updates query location.
+- ChartSection re-filters chart data.
+- PropertyGrid updates visible property cards.
+
+SECTION 6: WEATHER WIDGET
+
+Placement: top-right of the dashboard header, next to island selector.
+This keeps weather context tied to the selected island.
+
+API target: Kihei, HI, US (OpenWeatherMap query q=Kihei,HI,US).
+Kihei is used because the flagship listing is Kihei Studio by the Sea and it is
+representative of South Maui visitor conditions.
+
+Displayed fields:
+- Temperature in F and C
+- Condition text
+- Weather icon
+- Humidity
+- Last-updated timestamp
+
+Resilience behavior:
+- Loading: show "Loading weather..."
+- Error: show "Weather data unavailable. Please try again later."
+- Failure is isolated so the rest of the dashboard still functions.
+
+SECTION 7: DATA ARCHITECTURE
+
+Primary external source:
+- Hawaii DBEDT visitor research data (CSV)
+
+Fields used:
+- VisitorOrigin
+- IslandVisited
+- AverageNightsStayed
+- TotalArrivals
+- Month, Year
+
+Pipeline:
+1. CSV is cleaned and standardized.
+2. scripts/seedStats.js converts rows to JSON objects.
+3. Records are inserted into MongoDB collection visitorStats.
+4. Express route GET /api/stats/visitors serves filtered results.
+
+Example schema:
+{
+  "month": "January",
+  "year": 2024,
+  "island": "Maui",
+  "origin": "Canada",
+  "totalArrivals": 12400,
+  "avgNightsStayed": 7.2
+}
+
+API filtering:
+- /api/stats/visitors?island=Maui&origin=Canada&year=2024
+
+Current status:
+- Week 13 charts use local mock data for structure and styling.
+- Week 14 replaces mock data with useEffect + fetch integration.
+
+SECTION 8: WEEK 14-15 PLAN
+
+Planned features:
+1. Connect charts and cards to live API responses.
+2. Add React Router from marketing page CTA to DashboardPage.
+3. Add AdminDashboard route with JWT-based authentication.
+4. Add property detail page with larger gallery and inquiry form.
+
+Open decisions:
+- Weather refresh strategy: periodic refresh vs on-change only.
+- Data freshness strategy: direct fetch each load vs server-side TTL cache.
+
+COMPONENT HIERARCHY v2.0
+
+App
+|- MarketingPage
+|  |- Header
+|  |- HeroSection
+|  |- About
+|  |- Amenities
+|  |- CTASection
+|  |- Footer
+|- DashboardPage
+|  |- DashboardHeader
+|  |  |- IslandSelector
+|  |  |- WeatherWidget
+|  |- ChartSection
+|  |  |- BarChart
+|  |  |- HBarChart
+|  |  |- LineChart
+|  |- PropertyGrid
+|     |- PropertyCard
+|- AdminDashboard (planned)
+   |- AdminPanel
+
+ACCEPTANCE CRITERIA
+
+1. Given a visitor opens the marketing page at 375px width, when the page
+   loads, then Hero, About, Amenities, and CTA are readable with no horizontal
+   scroll.
+
+2. Given DashboardPage loads with default island Maui, when weather resolves,
+   then widget shows Kihei temperature in both F and C within 3 seconds under
+   normal network conditions.
+
+3. Given property data is loaded, when the nightly-rate bar chart renders, then
+   highest and lowest priced listings are visually distinguishable.
+
+4. Given arrivals data is loaded, when the line chart renders, then months Jan-
+   Dec appear on x-axis and Canada vs Total series are clearly distinct.
+
+5. Given selectedIsland changes, when user picks a new island, then charts,
+   property grid, and weather widget update without full page reload.
+
+6. Given a visitor clicks Contact Us in CTA, when mail client opens, then the
+   destination address is prefilled and the link does not error.

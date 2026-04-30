@@ -1,0 +1,186 @@
+============================================================
+WEEK 16 ORAL PRESENTATION PREP
+Maui Luxury Vacation Rentals Dashboard
+============================================================
+
+This file is your personal study guide for the Week 16 oral presentation.
+Your instructor will open by asking you to describe your latest PRD update.
+Practice answering every question below OUT LOUD before presentation day.
+There are no right answers here — the instructor wants to hear YOUR thinking.
+============================================================
+
+
+HOW THE ORAL PRESENTATION WORKS
+------------------------------------------------------------
+You open by describing your PRD v2.0 update in your own words (~2 minutes).
+Then the instructor asks follow-up questions about your design decisions.
+The key word: YOUR. You cannot read from notes during this part.
+
+
+PART 1 — YOUR OPENING STATEMENT (practice until natural)
+------------------------------------------------------------
+Practice saying this out loud, in your own words:
+
+"My project is [property name] targeting [visitor segment] on [island].
+In Week 12 I designed the marketing page with [components].
+In Week 13 I extended the PRD to add a statistics dashboard with three charts.
+I chose [chart 1] because [reason for your segment].
+I chose [chart 2] because [reason for your segment].
+I chose [chart 3] because [reason for your segment].
+For the island selector I went with [dropdown/tabs/map] because [your reason].
+The weather widget shows [city] because [why that city].
+My data comes from DBEDT, specifically [fields], served by [Express route]."
+
+TIME YOURSELF. Aim for 90–120 seconds. If you stumble on any sentence,
+that is a decision you need to think through more deeply before Week 16.
+
+
+PART 2 — QUESTIONS THE INSTRUCTOR IS LIKELY TO ASK
+------------------------------------------------------------
+Read each question. Speak your answer out loud. Write key points below.
+
+--- ABOUT YOUR CHARTS ---
+
+Q1: Why did you pick a bar chart for nightly rates instead of a table or pie chart?
+Your answer notes:
+
+
+Q2: Why does average stay duration matter specifically to a Canadian vacationer?
+Your answer notes:
+
+
+Q3: How did you get the DBEDT data — what is the actual URL or file you used?
+  (Go find it: dbedt.hawaii.gov -> Statistics -> Visitor Research)
+Your answer notes:
+
+
+Q4: What happens to the charts if the Express API is down?
+Your answer notes:
+
+
+--- ABOUT THE ISLAND SELECTOR ---
+
+Q5: You chose a dropdown. What did you consider and reject before picking it?
+Your answer notes:
+
+
+Q6: What is the name of the state variable that holds the selected island?
+  (Answer: selectedIsland — but be ready to explain WHERE it lives and WHY there)
+Your answer notes:
+
+
+Q7: When the user changes the island selector, which components re-render and why?
+Your answer notes:
+
+
+--- ABOUT THE WEATHER WIDGET ---
+
+Q8: Why Kihei specifically? Why not Lahaina or Kahului?
+  (Kihei is where your flagship property "Kihei Studio by the Sea" is located)
+Your answer notes:
+
+
+Q9: You show both °F and °C — why bother with both?
+  (Canadian visitors use °C; US-based visitors expect °F)
+Your answer notes:
+
+
+Q10: What does the widget show while the weather API is still loading?
+Your answer notes:
+
+
+--- ABOUT DATA ARCHITECTURE ---
+
+Q11: Walk me through how the DBEDT CSV becomes a Chart.js data array.
+  (CSV download -> clean in Excel or Python -> save as JSON -> seed to MongoDB
+   or serve as static file -> Express GET /api/stats/visitors -> React fetch())
+Your answer notes:
+
+
+Q12: What query parameters does your /api/stats/visitors route accept?
+Your answer notes:
+
+
+--- ABOUT SCOPE AND TRADEOFFS ---
+
+Q13: What did you defer to Weeks 14–15 and why not do it now?
+Your answer notes:
+
+
+Q14: What is the biggest open design question you haven't resolved yet?
+Your answer notes:
+
+
+Q15: If you had one more week, what would you add first?
+Your answer notes:
+
+
+--- ABOUT YOUR ACCEPTANCE CRITERIA ---
+
+Q16: Read acceptance criterion #5 out loud. How would you actually test that?
+  (Manually — open the dashboard, look at the bar chart, confirm the tallest
+   and shortest bar are immediately distinguishable. No automation required.)
+Your answer notes:
+
+
+Q17: Who is "I" in the acceptance criteria that say "Given I am the property operator"?
+  (It is Kai, your property admin persona from v1.0)
+Your answer notes:
+
+
+PART 3 — THINGS YOU SHOULD ACTUALLY LOOK UP BEFORE WEEK 16
+------------------------------------------------------------
+[ ] Visit dbedt.hawaii.gov and find the actual visitor statistics CSV.
+    Note the exact file name and fields here:
+    File: _______________________________________________
+    Fields you will use: _________________________________
+
+[ ] Sign up for a free OpenWeatherMap API key and test one call:
+    curl "https://api.openweathermap.org/data/2.5/weather?q=Kihei,HI,US&appid=YOUR_KEY&units=imperial"
+    Confirm you see temperature, humidity, and condition description.
+
+[ ] Review your week12/term-project/ code and confirm which components
+    exist and which are still stubs. Know this cold for Week 16.
+
+[ ] Time your opening statement (Part 1 above) — do it three times.
+
+
+PART 4 — WHAT MAKES A STRONG ORAL OPENING
+------------------------------------------------------------
+The instructor is NOT testing whether you memorized the slides.
+They are testing whether you actually made the decisions yourself.
+
+Strong answers:
+  "I chose a dropdown because on mobile at 375px, tabs would have
+   collapsed awkwardly and I already had a select element in IslandList."
+
+Weak answers:
+  "I chose a dropdown because it was the best option for UX."
+
+Strong answers:
+  "I used Kihei because my flagship property — Kihei Studio by the Sea —
+   is literally in Kihei, so the weather there is the most relevant."
+
+Weak answers:
+  "I used Kihei because it is a city on Maui."
+
+The difference: specificity. Tie every answer back to YOUR property,
+YOUR visitor segment, YOUR actual code decisions.
+
+
+PART 5 — LAST MINUTE CHECKLIST (night before Week 16)
+------------------------------------------------------------
+[ ] Can you say your opening statement from memory without reading a note?
+[ ] Can you name all three charts and the reason for each one?
+[ ] Can you name the state variable for the island selector?
+[ ] Can you explain what happens to the weather widget when the API is slow?
+[ ] Can you describe the DBEDT data pipeline start to finish?
+[ ] Can you read any acceptance criterion and explain how you'd verify it?
+[ ] Do you know which components re-render when the island selector changes?
+
+
+============================================================
+END OF ORAL PREP GUIDE
+Use this to practice, not to memorize. If you can answer every question
+above out loud without looking at your notes, you are ready for Week 16.
+============================================================

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maui Luxury Vacation Rentals Dashboard PRD</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1f2933;
+        --muted: #52606d;
+        --accent: #0b7285;
+        --line: #d9e2ec;
+        --paper: #ffffff;
+        --wash: #f7fbfc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 32px;
+        background: var(--wash);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.45;
+      }
+
+      main {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 40px 48px;
+        background: var(--paper);
+        box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+        color: #102a43;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        margin-top: 28px;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--line);
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      .meta {
+        margin-bottom: 20px;
+        color: var(--muted);
+      }
+
+      .persona {
+        margin-bottom: 14px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 18px;
+        font-size: 0.95rem;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #eef7f8;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .diagram,
+      .wireframe {
+        margin: 14px 0 18px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        background: #fbfdfe;
+        font-family: "Courier New", monospace;
+        white-space: pre-wrap;
+      }
+
+      ol {
+        padding-left: 22px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      .accent {
+        color: var(--accent);
+      }
+
+      @page {
+        margin: 0.6in;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+
+        main {
+          max-width: none;
+          padding: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Product Requirements Document</h1>
+      <p class="meta">
+        <strong>Product:</strong> Maui Luxury Vacation Rentals Dashboard<br />
+        <strong>Island:</strong> Maui<br />
+        <strong>Primary Visitor Segment:</strong> Canadian vacationers escaping winter and seeking affordable, local vacation rentals.
+      </p>
+
+      <h2>Project Overview</h2>
+      <p>
+        Maui Luxury Vacation Rentals Dashboard is a three-page React application that introduces visitors to Maui vacation rentals, helps travelers browse listings, and establishes the operational foundation for property management. The first page is a <strong>Marketing Page</strong> that communicates the brand promise and encourages exploration. The second page is a <strong>Visitor Dashboard</strong> that displays live property data from the existing Express and MongoDB backend. The third page is an <strong>Admin Dashboard foundation</strong> that prepares the system for future listing management workflows.
+      </p>
+      <p>
+        The business goal is to convert browsing interest into serious travel intent by presenting authentic Maui stays in a way that feels clear, scenic, and trustworthy. The experience should emphasize local rentals, affordability, and traveler-friendly amenities such as kitchens, parking, beach access, and long-stay comfort. The Visitor Dashboard should continue that experience by making listings easy to scan and compare.
+      </p>
+      <p>
+        This PRD defines <span class="accent">why</span> the React frontend exists and <span class="accent">what</span> it must deliver. The Marketing Page should establish the rental brand for first-time visitors, while the Visitor Dashboard should provide a scalable component foundation tied directly to the Week 11 backend API. The result should be a deliberate frontend structure that supports the larger Term Project without major redesign.
+      </p>
+
+      <h2>User Personas</h2>
+      <p class="persona">
+        <strong>Persona 1: Claire, Target Visitor.</strong> Claire is a 34-year-old traveler from Vancouver planning a winter trip with her partner. She wants a Maui stay that feels scenic, affordable, and more personal than a large resort. She expects a website that quickly shows real rentals, clear amenities, and a confident next step toward browsing listings.
+      </p>
+      <p class="persona">
+        <strong>Persona 2: Kai, Property Admin.</strong> Kai is a 41-year-old local manager on Maui responsible for keeping listings accurate. He needs the frontend to reflect the same field names and meanings used in the database so the site can later support editing, review, and maintenance without duplicated work.
+      </p>
+
+      <h2>Marketing Page Requirements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Data Displayed</th>
+            <th>Purpose</th>
+            <th>User Interaction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hero</td>
+            <td>Brand title, destination message, supporting copy, primary image, CTA button</td>
+            <td>Explains the value of the site immediately</td>
+            <td>User selects CTA to move to listings</td>
+          </tr>
+          <tr>
+            <td>About</td>
+            <td>Brand story, local-host angle, trust-building copy, island focus</td>
+            <td>Builds credibility and explains differentiation</td>
+            <td>User reads and continues scanning the page</td>
+          </tr>
+          <tr>
+            <td>Amenities</td>
+            <td>Highlights such as wifi, kitchen, beach access, parking, ocean view</td>
+            <td>Supports quick comparison without long paragraphs</td>
+            <td>User scans badges or cards for fit</td>
+          </tr>
+          <tr>
+            <td>CTA</td>
+            <td>Closing headline, booking encouragement, dashboard link</td>
+            <td>Converts interest into action</td>
+            <td>User navigates to the Visitor Dashboard</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The Marketing Page must be visually welcoming, mobile-friendly, and easy to understand within seconds. Components should be reusable so the layout can evolve later without restructuring the entire app.
+      </p>
+
+      <h2>Component Hierarchy Diagram</h2>
+      <div class="diagram">App
+|- MarketingPage
+|  |- Header
+|  |- Hero
+|  |- About
+|  |- Amenities
+|  |- CTA
+|- VisitorDashboard
+|  |- DashboardHeader
+|  |- PropertyGrid
+|     |- PropertyCard
+|- AdminDashboard
+   |- AdminPanel</div>
+
+      <h3>Rough Wireframe</h3>
+      <div class="wireframe">+--------------------------------------------------+
+| Header / Nav                                     |
++--------------------------------------------------+
+| Hero image + headline + CTA button               |
++--------------------------------------------------+
+| About section                                    |
++--------------------------------------------------+
+| Amenities icons/cards                            |
++--------------------------------------------------+
+| CTA banner -> View Maui Listings                 |
++--------------------------------------------------+
+| Visitor Dashboard: filter + property card grid   |
++--------------------------------------------------+</div>
+
+      <h2>Data Flow</h2>
+      <p>
+        Property data originates in MongoDB and is exposed through the existing Express API. Each property includes fields such as name, island, type, description, amenities, targetSegment, and imageURL. The React frontend will request listings from <strong>GET /api/properties</strong>, optionally using the island filter, and store the response in state at the page-container level.
+      </p>
+      <p>
+        The Visitor Dashboard container passes property objects into presentational components such as PropertyGrid and PropertyCard through props. The Marketing Page may use some static copy for storytelling, but its labels and amenity language should remain aligned with the backend schema so the message reflects real inventory. Data should move in one direction: backend to stateful parent, then parent to child components.
+      </p>
+      <p>
+        User actions such as selecting the CTA or applying a listing filter should trigger navigation or state changes rather than direct DOM manipulation. This keeps the frontend consistent with React design principles and provides a clean foundation for future search, favorites, and admin management features.
+      </p>
+
+      <h2>Acceptance Criteria</h2>
+      <ol>
+        <li>Given a visitor lands on the site, when the Marketing Page loads, then the Hero, About, Amenities, and CTA components are visible in a clear top-to-bottom structure.</li>
+        <li>Given the Visitor Dashboard requests property data, when the API returns a successful response, then the page displays a card for each Maui rental returned by the backend.</li>
+        <li>Given a property card is rendered, when a visitor reads it, then the card shows at minimum the property name, description, image, and amenities summary.</li>
+        <li>Given the CTA button appears on the Marketing Page, when the visitor selects it, then the app routes the user to the Visitor Dashboard or listings view.</li>
+        <li>Given the frontend is reviewed against the backend model, when components are mapped to data, then the displayed field names and meanings match the MongoDB schema and Express API.</li>
+      </ol>
+    </main>
+  </body>
+  </html>

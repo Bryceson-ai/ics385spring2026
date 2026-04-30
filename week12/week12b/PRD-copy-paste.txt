@@ -1,0 +1,188 @@
+PRODUCT REQUIREMENTS DOCUMENT
+
+Student Name: Bryceson Gaoiran
+Course: ICS 385
+
+Project: Maui Luxury Vacation Rentals Dashboard
+Island: Maui
+Primary Visitor Segment: Canadian vacationers escaping winter and seeking affordable, local vacation rentals.
+
+PROJECT OVERVIEW
+
+Maui Luxury Vacation Rentals Dashboard is a three-page React application that introduces visitors to Maui vacation rentals, helps travelers browse listings, and establishes the operational foundation for property management. The first page is a Marketing Page that communicates the brand promise and encourages exploration. The second page is a Visitor Dashboard that displays live property data from the existing Express and MongoDB backend. The third page is an Admin Dashboard foundation that prepares the system for future listing management workflows.
+
+The business goal is to convert browsing interest into serious travel intent by presenting authentic Maui stays in a way that feels clear, scenic, and trustworthy. The experience should emphasize local rentals, affordability, and traveler-friendly amenities such as kitchens, parking, beach access, and long-stay comfort. The Visitor Dashboard should continue that experience by making listings easy to scan and compare.
+
+This PRD defines why the React frontend exists and what it must deliver. The Marketing Page should establish the rental brand for first-time visitors, while the Visitor Dashboard should provide a scalable component foundation tied directly to the Week 11 backend API. The result should be a deliberate frontend structure that supports the larger Term Project without major redesign.
+
+USER PERSONAS
+
+Persona 1: Claire, Target Visitor
+Claire is a 34-year-old traveler from Vancouver planning a winter trip with her partner. She wants a Maui stay that feels scenic, affordable, and more personal than a large resort. She expects a website that quickly shows real rentals, clear amenities, and a confident next step toward browsing listings.
+
+Persona 2: Kai, Property Admin
+Kai is a 41-year-old local manager on Maui responsible for keeping listings accurate. He needs the frontend to reflect the same field names and meanings used in the database so the site can later support editing, review, and maintenance without duplicated work.
+
+MARKETING PAGE REQUIREMENTS
+
+1. Hero Component
+Data Displayed: Brand title, destination message, supporting copy, primary image, CTA button.
+Purpose: Explains the value of the site immediately.
+User Interaction: User selects the CTA to move to listings.
+
+2. About Component
+Data Displayed: Brand story, local-host angle, trust-building copy, island focus.
+Purpose: Builds credibility and explains differentiation.
+User Interaction: User reads and continues scanning the page.
+
+3. Amenities Component
+Data Displayed: Highlights such as wifi, kitchen, beach access, parking, ocean view.
+Purpose: Supports quick comparison without long paragraphs.
+User Interaction: User scans badges or cards for fit.
+
+4. CTA Component
+Data Displayed: Closing headline, booking encouragement, dashboard link.
+Purpose: Converts interest into action.
+User Interaction: User navigates to the Visitor Dashboard.
+
+The Marketing Page must be visually welcoming, mobile-friendly, and easy to understand within seconds. Components should be reusable so the layout can evolve later without restructuring the entire app.
+
+COMPONENT HIERARCHY DIAGRAM
+
+App
+- MarketingPage
+  - Header
+  - Hero
+  - About
+  - Amenities
+  - CTA
+- VisitorDashboard
+  - DashboardHeader
+  - PropertyGrid
+    - PropertyCard
+- AdminDashboard
+  - AdminPanel
+
+ROUGH WIREFRAME
+
++--------------------------------------------------+
+| Header / Nav                                     |
++--------------------------------------------------+
+| Hero image + headline + CTA button               |
++--------------------------------------------------+
+| About section                                    |
++--------------------------------------------------+
+| Amenities icons/cards                            |
++--------------------------------------------------+
+| CTA banner -> View Maui Listings                 |
++--------------------------------------------------+
+| Visitor Dashboard: filter + property card grid   |
++--------------------------------------------------+
+
+DATA FLOW
+
+Property data originates in MongoDB and is exposed through the existing Express API. Each property includes fields such as name, island, type, description, amenities, targetSegment, and imageURL. The React frontend will request listings from GET /api/properties, optionally using the island filter, and store the response in state at the page-container level.
+
+The Visitor Dashboard container passes property objects into presentational components such as PropertyGrid and PropertyCard through props. The Marketing Page may use some static copy for storytelling, but its labels and amenity language should remain aligned with the backend schema so the message reflects real inventory. Data should move in one direction: backend to stateful parent, then parent to child components.
+
+User actions such as selecting the CTA or applying a listing filter should trigger navigation or state changes rather than direct DOM manipulation. This keeps the frontend consistent with React design principles and provides a clean foundation for future search, favorites, and admin management features.
+
+ACCEPTANCE CRITERIA
+
+1. Given a visitor lands on the site, when the Marketing Page loads, then the Hero, About, Amenities, and CTA components are visible in a clear top-to-bottom structure.
+2. Given the Visitor Dashboard requests property data, when the API returns a successful response, then the page displays a card for each Maui rental returned by the backend.
+3. Given a property card is rendered, when a visitor reads it, then the card shows at minimum the property name, description, image, and amenities summary.
+4. Given the CTA button appears on the Marketing Page, when the visitor selects it, then the app routes the user to the Visitor Dashboard or listings view.
+5. Given the frontend is reviewed against the backend model, when components are mapped to data, then the displayed field names and meanings match the MongoDB schema and Express API.
+
+WEEK 14C EXTENSION: AUTHENTICATION AND SECURITY
+
+SECTION A - AUTHENTICATION REQUIREMENTS
+
+Authentication Method
+The Admin login system will use Passport.js LocalStrategy with username field configured as email plus password. The admin submits credentials through a standard HTML/React login form, and the backend validates those credentials against stored user records. The same LocalStrategy pattern used in Week 14B standalone practice will be applied to the Term Project backend for consistency and reduced integration risk.
+
+Admin User Definition
+The admin user in this application is Kai, the Maui property manager responsible for listing quality and operational accuracy. Unlike a public visitor, an authenticated admin can access protected management functions such as creating or editing listing descriptions, updating amenities, toggling featured status, and reviewing internal dashboard controls. Public users can browse listings and view marketing content but cannot access or modify any admin-only data.
+
+Protected Routes
+At minimum, the following routes are protected and must require authentication:
+- /admin/login (public route for credential submission)
+- /admin/dashboard (protected route for admin tools and operational metrics)
+
+Additional admin routes may be added later, such as /admin/properties/new and /admin/properties/:id/edit, but those are out of current scope.
+
+Login Flow (Plain English)
+1. The admin navigates to /admin/login and enters email and password.
+2. The browser submits the form to the backend login endpoint.
+3. Passport LocalStrategy receives the credentials and looks up the user by email.
+4. The submitted password is compared against the stored bcrypt hash.
+5. If credentials are valid, Passport serializes the user ID into the session.
+6. The server redirects the admin to /admin/dashboard.
+7. If credentials are invalid, the server redirects back to /admin/login with an error message.
+
+Session Management
+Authentication will use server-side sessions through express-session. Target session duration is 60 minutes of inactivity for this class project baseline. If the admin closes the browser, the session cookie should be treated as expired at browser end unless explicitly configured otherwise. If a valid session exists, protected route access continues; if the session has expired or is missing, the user is redirected to /admin/login.
+
+SECTION B - SECURITY REQUIREMENTS
+
+Password Hashing Policy
+All passwords must be hashed with bcrypt using 10 or more salt rounds (project target: 12). Plain-text password storage is unacceptable because any database leak would immediately expose reusable credentials, creating high-risk account takeover scenarios across other sites where users may reuse passwords.
+
+Environment Variable Management
+Sensitive values must be stored in .env and never hardcoded in source files. Required secret/config entries include:
+- SESSION_SECRET
+- MONGODB_URI
+- VITE_WEATHER_KEY (frontend weather API key)
+- Any future OAuth/API provider keys
+
+The .gitignore file must include .env and related local secret files so secrets are not committed to GitHub.
+
+Failed Login Handling
+If login fails, the server should not reveal whether the email or password was incorrect. The application redirects to /admin/login with a generic error message such as "Invalid credentials." Failed attempts should be logged server-side for basic monitoring. In future hardening, rate-limiting and account lockout thresholds can be added.
+
+Additional Security Risk and Mitigation
+Risk: Cross-site scripting (XSS) in public review or description fields, where malicious input could inject script into property pages.
+Mitigation: Validate and sanitize all user input server-side before storage, escape rendered output in templates/components, and avoid direct HTML injection patterns. Apply a strict content-security policy in production if available.
+
+SECTION C - UPDATED USER STORIES
+
+Authentication Story 1
+As an admin, I want to log in with my email and password so that only authorized staff can manage property listings and special offers.
+
+Authentication Story 2
+As a public visitor, I want to be blocked from /admin/dashboard unless authenticated so that listing data cannot be changed by unauthorized users.
+
+Authentication Story 3
+As an admin, I want my session to persist during normal work activity but expire after inactivity so that account security is maintained without constant re-login friction.
+
+SECTION D - UPDATED ARCHITECTURE DIAGRAM (AUTH LAYER)
+
+App
+- MarketingPage
+  - Header
+  - Hero
+  - About
+  - Amenities
+  - CTA
+- VisitorDashboard
+  - DashboardHeader
+  - PropertyGrid
+    - PropertyCard
+- AdminAuth
+  - /admin/login
+    - LoginForm
+    - Passport LocalStrategy Middleware
+  - Session Store (express-session)
+  - /admin/dashboard (Protected)
+    - AdminPanel
+
+This updated architecture introduces an explicit authentication boundary between public routes and admin routes while preserving the existing Week 12/13 component foundation.
+
+UPDATED ACCEPTANCE CRITERIA FOR AUTHENTICATION
+
+6. Given an unauthenticated user requests /admin/dashboard, when the route guard checks session state, then the user is redirected to /admin/login.
+7. Given an admin submits valid email and password, when Passport LocalStrategy validates credentials, then a session is created and the user is redirected to /admin/dashboard.
+8. Given an admin submits invalid credentials, when authentication fails, then the application redirects back to /admin/login with a generic error message.
+9. Given a password is stored in the database, when user records are inspected, then stored password values are bcrypt hashes and not plain text.
+10. Given the codebase is reviewed for secrets, when repository files are inspected, then .env values are not committed and .gitignore covers secret files.

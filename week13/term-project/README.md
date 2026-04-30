@@ -135,7 +135,7 @@ The frontend dev server proxies /api requests to http://localhost:3000.
 
 ## Reflection
 
-For Week 13, I built a modular React dashboard that extends my marketing page without replacing it. The biggest addition was connecting island-driven UI state to multiple outputs at once: KPI cards, three charts, and the weather widget. I also structured the dashboard as a standalone component so it can be reused in Weeks 14-15 when I add authentication and an admin route. I then moved the chart data flow from frontend JSON files into Express /api routes so the dashboard behaves like a real client for the backend. My next steps are to replace the temporary analytics arrays with database-backed or CSV-seeded collections, add React Router for route-based navigation, and protect the dashboard with Passport or JWT-based authentication.
+For Week 13, I built a modular React dashboard that extends my Week 12 marketing page with an island selector, three Chart.js visualizations (arrivals, origin mix, and stay trend), KPI cards, and a live OpenWeatherMap widget, then connected the chart/KPI layer to Express API routes so the frontend behaves like a true client instead of a static mock page. The most important part I completed was state-driven updates across multiple components when the selected island changes, which makes the dashboard reusable for future admin workflows. In Weeks 14-15, I plan to add route-based navigation with React Router, replace the temporary analytics arrays with seeded DBEDT-backed data storage, and wrap this same Dashboard component behind authentication on /admin/dashboard using Passport.js or JWT so access control can be added without rewriting the charts.
 
 ## AI Attribution
 
@@ -153,6 +153,7 @@ AI-assisted areas:
 
 - Submit the GitHub folder URL for week13/term-project.
 - Capture browser screenshots showing the KPI row plus all three charts.
+- Generated screenshots are in docs/screenshots/dashboard-all-charts.png, docs/screenshots/chart-1.png, docs/screenshots/chart-2.png, and docs/screenshots/chart-3.png.
 - Make sure the Express backend is running on port 3000 before taking screenshots so the charts can load.
 - If the weather widget shows a setup message instead of live weather, add a local .env file with VITE_WEATHER_KEY before taking screenshots.
 

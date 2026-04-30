@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials-head') %>
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="shell nav-bar">
+        <div>
+          <p class="eyebrow">Protected Admin Interface</p>
+          <h1 class="brand-title">Operations Dashboard</h1>
+        </div>
+        <form method="post" action="/logout">
+          <button class="button button-secondary" type="submit">Logout</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="shell admin-page">
+      <section class="panel admin-summary">
+        <div>
+          <p class="eyebrow">Signed in as</p>
+          <h2><%= currentUser.displayName %></h2>
+          <p class="muted"><%= currentUser.email %> • Provider: <%= currentUser.provider %></p>
+        </div>
+        <div class="summary-chips">
+          <span class="amenity-pill">Properties: <%= properties.length %></span>
+          <span class="amenity-pill">Reviews: <%= totalReviews %></span>
+        </div>
+      </section>
+
+      <% if (created) { %>
+        <section class="panel success-banner">Property created successfully.</section>
+      <% } %>
+
+      <section class="admin-grid">
+        <article class="panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Protected admin action</p>
+              <h3>Property inventory</h3>
+            </div>
+            <a class="button button-primary" href="/admin/properties/new">Add Property</a>
+          </div>
+
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Island</th>
+                <th>Type</th>
+                <th>Reviews</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% properties.forEach((property) => { %>
+                <tr>
+                  <td><%= property.name %></td>
+                  <td><%= property.island %></td>
+                  <td><%= property.type %></td>
+                  <td><%= property.reviews.length %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

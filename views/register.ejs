@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials-head') %>
+  </head>
+  <body class="auth-page">
+    <main class="auth-shell">
+      <section class="auth-card panel">
+        <p class="eyebrow">Local account</p>
+        <h1>Create admin account</h1>
+        <p class="muted">Register once, then you can also link a Google account with the same verified email.</p>
+
+        <% if (authError) { %>
+          <div class="alert"><%= authError %></div>
+        <% } %>
+
+        <% if (errors && errors.length) { %>
+          <div class="alert">
+            <% errors.forEach((error) => { %>
+              <p><%= error.msg %></p>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <form method="post" action="/register" class="auth-form">
+          <label for="displayName">Display name</label>
+          <input id="displayName" name="displayName" type="text" value="<%= formData.displayName || '' %>" required />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" value="<%= formData.email || '' %>" required />
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required />
+
+          <button class="button button-primary" type="submit">Register</button>
+        </form>
+
+        <p class="auth-footer">Already registered? <a href="/login">Back to login</a></p>
+      </section>
+    </main>
+  </body>
+</html>

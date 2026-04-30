@@ -1,0 +1,151 @@
+{
+  "university": "University of Hawaii Maui College",
+  "semester": "Spring 2026",
+  "lastUpdated": "2026-03-03",
+  "departments": [
+    {
+      "code": "ICS",
+      "name": "Information and Computer Sciences",
+      "chair": "Dr. Jane Smith",
+      "courses": [
+        {
+          "courseCode": "ICS 385",
+          "title": "Web Development and Administration",
+          "credits": 3,
+          "description": "Web authoring, APIs, and server-side fundamentals.",
+          "prerequisites": ["ICS 320"],
+          "instructor": {
+            "name": "Dr. Debasis Bhattacharya",
+            "email": "debasisb@hawaii.edu",
+            "office": "Kaaike 114"
+          },
+          "schedule": {
+            "days": ["Tuesday"],
+            "time": "4:30 PM - 5:45 PM",
+            "location": "Online (Zoom)",
+            "capacity": 25,
+            "enrolled": 18
+          },
+          "isActive": true,
+          "topics": ["HTML", "CSS", "JavaScript", "APIs"],
+          "assignments": []
+        },
+        {
+          "courseCode": "ICS 314",
+          "title": "Software Engineering",
+          "credits": 3,
+          "description": "Agile methods, design patterns, team project workflows.",
+          "prerequisites": ["ICS 211"],
+          "instructor": {
+            "name": "Prof. Kaipo Lee",
+            "email": "kaipo@hawaii.edu",
+            "office": "Kaaike 211"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday"],
+            "time": "1:00 PM - 2:15 PM",
+            "location": "KAA 104",
+            "capacity": 30,
+            "enrolled": 27
+          },
+          "isActive": true,
+          "topics": ["Agile", "Git", "Testing"],
+          "assignments": []
+        }
+      ]
+    },
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "chair": "Dr. Robert Johnson",
+      "courses": [
+        {
+          "courseCode": "MATH 140",
+          "title": "Calculus I",
+          "credits": 4,
+          "description": "Limits, derivatives, and applications.",
+          "prerequisites": ["MATH 135"],
+          "instructor": {
+            "name": "Dr. Sarah Wilson",
+            "email": "sarahw@hawaii.edu",
+            "office": "AC 201"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday", "Friday"],
+            "time": "10:00 AM - 10:50 AM",
+            "location": "AC 105",
+            "capacity": 30,
+            "enrolled": 25
+          },
+          "isActive": true,
+          "topics": ["Limits", "Derivatives", "Integration"],
+          "assignments": []
+        }
+      ]
+    },
+    {
+      "code": "ENG",
+      "name": "English",
+      "chair": "Dr. Alana Cruz",
+      "courses": [
+        {
+          "courseCode": "ENG 100",
+          "title": "Composition I",
+          "credits": 3,
+          "description": "Academic writing and research fundamentals.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Prof. Malia Keawe",
+            "email": "mkeawe@hawaii.edu",
+            "office": "LIB 12"
+          },
+          "schedule": {
+            "days": ["Tuesday", "Thursday"],
+            "time": "9:00 AM - 10:15 AM",
+            "location": "LIB 2",
+            "capacity": 28,
+            "enrolled": 22
+          },
+          "isActive": true,
+          "topics": ["Rhetoric", "Research", "Drafting"],
+          "assignments": []
+        }
+      ]
+    },
+    {
+      "code": "BIO",
+      "name": "Biology",
+      "chair": "Dr. Nolan Kim",
+      "courses": [
+        {
+          "courseCode": "BIO 101",
+          "title": "General Biology",
+          "credits": 4,
+          "description": "Principles of biology with lab applications.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Dr. Leinaala Baker",
+            "email": "lbaker@hawaii.edu",
+            "office": "SCI 110"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday"],
+            "time": "11:00 AM - 12:15 PM",
+            "location": "SCI 203",
+            "capacity": 26,
+            "enrolled": 24
+          },
+          "isActive": true,
+          "topics": ["Cells", "Genetics", "Ecology"],
+          "assignments": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "totalCourses": 5,
+    "totalDepartments": 4,
+    "totalCreditsOffered": 17,
+    "academicYear": "2025-2026"
+  }
+}

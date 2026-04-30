@@ -1,0 +1,203 @@
+WEEK 16 ORAL PRESENTATION — PRACTICE SCRIPT
+Maui Luxury Vacation Rentals Dashboard
+ICS 385 Spring 2026 — Bryceson Gaoiran
+============================================================
+
+HOW TO USE THIS SCRIPT
+- Read it aloud at least 3 times before presentation day.
+- Aim for conversational delivery — don't memorize word-for-word.
+- Timed run-through target: 8-10 minutes for the main presentation.
+- The Q&A answers are written to be spoken, not read.
+- Highlighted in brackets are spots where you point to the screen.
+============================================================
+
+
+OPENING STATEMENT (30-45 seconds)
+
+"Good afternoon. My name is Bryceson Gaoiran, and my term project is the
+Maui Luxury Vacation Rentals Dashboard.
+
+The core idea is simple: I built a React web application for a fictional
+Airbnb-style rental operator named Kai who manages five properties on Maui,
+and I designed it specifically to attract Canadian vacationers who come to
+Hawaii every winter to escape the cold.
+
+What I'm going to show you today is the full stack I built — starting with the
+marketing page that faces the guests, and ending with a statistics dashboard
+that gives the operator insight into who is actually booking and when."
+
+
+MARKETING PAGE SECTION (1-2 minutes)
+
+"Let me start with the marketing page.
+
+[point to screen] This is the landing page. At the top you have the Header
+with the property name and navigation. Below that is the Hero section — full
+bleed background with the property name, island, and a tagline targeted at
+Canadian visitors.
+
+The marketing page is made up of six React functional components: Header,
+HeroSection, About, Amenities, CTASection, and Footer. All of them share a
+single styles.css file, and the layout is CSS Grid with a Flexbox fallback
+for older browsers.
+
+One thing I'm proud of here is the responsiveness. [resize window or show
+mobile view] At 375 pixels — that's iPhone SE width — the grid collapses into
+a single column and everything is still readable. I used percent-based widths
+and CSS clamp() for font sizing so nothing breaks at any viewport width.
+
+The CTA section at the bottom has two actions: a Contact Us mailto link and
+a button that will eventually route to the dashboard. Right now it links to a
+hash anchor because I hadn't added React Router yet at this stage of the project."
+
+
+DASHBOARD SECTION (2-3 minutes)
+
+"Now the dashboard.
+
+The Visitor Statistics Dashboard is built around three Chart.js charts. Let me
+walk through each one because each one was chosen for a specific reason.
+
+[point to first chart] This is the nightly rate comparison bar chart. The data
+comes from the MongoDB properties collection — specifically the nightlyRate
+field from GET /api/properties. I chose a bar chart here because the entire
+guest journey starts with a budget decision. Canadian visitors are converting
+prices from USD to CAD in their heads. A bar chart lets them compare all five
+properties in under two seconds without reading a table.
+
+[point to second chart] This is average stay duration by visitor segment,
+shown as a horizontal bar chart. The data comes from the DBEDT — that's the
+Hawaii Department of Business, Economic Development and Tourism — which
+publishes annual visitor research reports. I chose horizontal bars specifically
+because the segment labels — 'Canadian Winter Vacationers', 'Eco-tourists',
+'Military and Government' — are long strings that would completely overlap each
+other on a vertical axis at any practical chart width.
+
+[point to third chart] This is the monthly arrivals line chart — Canada versus
+total visitors, tracked month by month. This chart exists to make the seasonality
+visible. The whole business case for targeting Canadians is that they arrive in
+big numbers between November and March. Without this chart, that's just an
+assumption. With it, you can actually see the spike.
+
+Above the charts is the island selector dropdown and the weather widget.
+When you change the island in the dropdown, all three charts re-filter their
+data, the property grid below updates, and the weather widget queries a new city
+from the OpenWeatherMap API. The selectedIsland state lives in DashboardPage
+because that is the common parent of every component that needs to respond to it."
+
+
+DATA ARCHITECTURE SECTION (1 minute)
+
+"For data, I'm working with two data sources.
+
+MongoDB stores property listings — name, island, type, description, amenities,
+target segment, image URL, and nightly rate. The Express API at GET /api/properties
+returns all of them, or you can filter by island with a query parameter.
+
+The visitor statistics come from a DBEDT CSV file. I wrote a Node.js seed script
+that reads the CSV, maps each row to a consistent JSON schema, and loads it into
+a separate MongoDB collection called visitorStats. From there, GET /api/stats/visitors
+serves it to the React app with optional filters for island, visitor origin, and year.
+
+For Week 13, chart data is still hardcoded inside the components. Live API
+connections are planned for Week 14 using useEffect and fetch hooks."
+
+
+CLOSING STATEMENT (30 seconds)
+
+"To wrap up — I built a full marketing page plus a data-driven statistics
+dashboard. The tech stack is React with Vite, Chart.js for data visualization,
+Express and MongoDB for the API layer, and OpenWeatherMap for the weather widget.
+
+The two problems I set out to solve were: give guests a fast, visual way to
+compare properties, and give the operator a clear picture of who is booking and
+when. I believe the app I built does both of those things.
+
+Happy to take questions."
+
+
+============================================================
+Q&A PRACTICE — LIKELY INSTRUCTOR QUESTIONS
+(Read the answers aloud so they feel natural before presentation day)
+============================================================
+
+
+Q: Why did you choose Canadian vacationers as your target segment?
+
+"The honest answer is that it's a real pattern in Hawaii tourism data. The DBEDT
+visitor reports show that Canadian arrivals spike sharply between November and
+March — that's their winter. They have longer average stays than most other
+segments, typically seven-plus nights, which is valuable for a rental operator
+because longer stays mean lower turnover costs. Once I saw that in the data, it
+made sense to design the whole product around them."
+
+
+Q: Why Chart.js instead of D3 or Recharts?
+
+"I considered Recharts, but it wraps Chart.js concepts in JSX in a way that
+makes it harder to see what's actually happening with the data. For a course
+project where I need to demonstrate that I understand the data transformation
+from raw JSON to a rendered chart, Chart.js is more transparent. D3 would have
+been even more flexible but the learning curve was too steep for the timeline
+I had."
+
+
+Q: Why a dropdown for the island selector instead of a map or tabs?
+
+"Two reasons. First, on a 375px mobile screen, a six-tab row would either
+overflow or collapse — dropdown scales to any viewport width with no extra CSS.
+Second, I had already built the dropdown-plus-filter pattern in the Week 13
+island cards assignment, so the code was familiar and I knew it worked. A
+clickable map would look much cooler but it would require adding a mapping
+library as a dependency, which is out of scope."
+
+
+Q: Where does the state live for the island selector and why?
+
+"The selectedIsland state variable lives in DashboardPage, which is the common
+parent of the WeatherWidget, ChartSection, and PropertyGrid. I chose that
+component instead of hoisting state even higher into App because nothing outside
+DashboardPage needs to know which island is selected. Keeping state as low as
+possible while still serving all the components that need it is the React
+co-location principle."
+
+
+Q: How does the weather widget fail gracefully if the API is down?
+
+"The widget has three states. While the fetch is in progress it renders a
+'Loading weather...' text placeholder so there's no blank flash. If the API
+call resolves successfully it displays temperature in Fahrenheit and Celsius,
+condition, humidity, and an icon. If the call fails for any reason — network
+error, bad API key, rate limit — it shows 'Weather data unavailable. Please
+try again later.' and the dashboard continues to function normally. No error
+gets surfaced to the user, and no component crashes."
+
+
+Q: What would you change if you had two more weeks?
+
+"The most important thing I'd add is real-time API integration — right now the
+chart data is hardcoded in Week 13. In Week 14 I'm replacing that with useEffect
+plus fetch so the charts pull live data from the Express server. After that,
+I'd add a simple JWT login gate on an admin route so Kai can edit property
+details without exposing a write API publicly. And I'd connect React Router so
+the CTA button on the marketing page actually navigates to the dashboard."
+
+
+Q: How did you handle responsive design?
+
+"I used percent-based widths everywhere instead of fixed pixel values so the
+layout scales naturally. Grid columns use auto-fit with a minmax so they collapse
+from multi-column to single-column automatically. Font sizes use CSS clamp() so
+headings scale with viewport width without media query breakpoints for every
+possible size. I tested at 375px and 1920px as the two extremes."
+
+
+Q: What is the seed script and why does it exist?
+
+"The seed script is a Node.js file at scripts/seedStats.js. It reads the raw
+DBEDT CSV, maps each row to my visitorStats JSON schema — fields like month,
+year, island, origin, totalArrivals, and avgNightsStayed — and inserts the
+records into MongoDB. It exists because I can't import a CSV directly into my
+React chart components. I needed to normalize the data into a consistent shape
+that my Express API can query and filter, and the seed script is where that
+transformation happens."

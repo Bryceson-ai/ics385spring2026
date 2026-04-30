@@ -1,0 +1,272 @@
+============================================================
+PRD v2.0 — Week 13 Update
+Maui Luxury Vacation Rentals Dashboard
+Student: Bryceson Gaoiran
+Date: April 2026
+============================================================
+
+! IMPORTANT BEFORE SUBMITTING !
+This file is a structured draft to help you organize your thinking.
+Your instructor requires no GenAI voice in the final PRD. Before
+submitting, rewrite every paragraph below in your own words.
+You will defend these decisions verbally in Week 16.
+============================================================
+
+
+SECTION 1: PROPERTY & AUDIENCE (carry forward from v1.0)
+
+Property Name: Maui Luxury Vacation Rentals Dashboard
+Island: Maui
+Property Type: Vacation Rental (Airbnb-style)
+Target Visitor Segment: Canadian vacationers escaping winter
+
+[REWRITE IN YOUR OWN WORDS — SUGGESTED POINTS:]
+- Why Maui specifically for Canadian travelers (climate contrast, flight routes)
+- What makes this property collection different from booking platforms
+- Any updates since v1.0 (e.g., scope narrowed, new feature added)
+
+[PLACEHOLDER:]
+The target audience has not changed since v1.0. This project focuses on
+Canadian visitors who book 5–10 day winter escapes and compare multiple
+properties before committing. The dashboard additions in v2.0 serve both
+the visitor (comparison tools) and the property operator (booking pattern
+visibility).
+
+
+SECTION 2: PROBLEM STATEMENT (refined from v1.0)
+
+[REWRITE IN YOUR OWN WORDS — SUGGESTED POINTS:]
+- Problem for the operator: no single view to see how properties perform,
+  which visitor segments book most, or what average stay looks like
+- Problem for the visitor: scattered listing information, no at-a-glance
+  comparison of properties by island area or price
+- How the v2.0 dashboard addresses both
+
+[PLACEHOLDER:]
+Property operators currently have no quick way to understand booking
+patterns across their Maui listings — they rely on manual spreadsheets.
+Visitors browsing from Canada have no tool that surfaces weather context,
+amenity comparisons, and stay statistics in one interface. This app solves
+both by adding a data-driven statistics layer on top of the marketing page
+built in Week 12.
+
+
+SECTION 3: MARKETING PAGE (carry forward, status update)
+
+Status: Implemented in Week 12 in week12/term-project/.
+
+Components: Hero, About, Amenities, CTASection, Header, Footer.
+CSS approach: Flexbox and CSS Grid; mobile-first breakpoints at 640px.
+
+[REWRITE IN YOUR OWN WORDS — add any changes or corrections since Week 12:]
+- Was anything deferred, changed, or improved?
+- Does the marketing page now link to the new dashboard?
+
+
+SECTION 4: DASHBOARD DESIGN (NEW)
+
+Three Charts — with rationale for the Canadian winter vacationer segment:
+
+--- Chart 1: Average Nightly Rate by Property (Bar Chart) ---
+Data source: MongoDB properties collection, nightlyRate field.
+Chart type: Bar chart (Chart.js Bar).
+Why it matters for the segment: Canadian travelers are sensitive to
+exchange rate fluctuations — seeing prices side by side lets them compare
+value quickly without clicking into each listing. A bar chart communicates
+relative cost more clearly than a table for non-technical users.
+
+--- Chart 2: Average Stay Duration by Visitor Segment (Horizontal Bar) ---
+Data source: DBEDT Hawaii Tourism Authority visitor data CSV,
+fields: VisitorSegment, AvgNightsStayed.
+Chart type: Horizontal bar (Chart.js Bar with indexAxis: 'y').
+Why it matters for the segment: The operator needs to see whether Canadian
+vacationers have meaningfully longer stays than other segments so they can
+price minimum-night requirements correctly. This chart answers that question
+directly.
+
+--- Chart 3: Visitor Arrivals by Month (Line Chart) ---
+Data source: DBEDT monthly visitor arrivals CSV,
+fields: Month, TotalArrivals, CanadaArrivals.
+Chart type: Line chart (Chart.js Line).
+Why it matters for the segment: Canadian bookings spike November–March
+(winter escape season). The line chart shows the operator when to raise
+minimum stays and lets visitors understand when Maui is most crowded.
+
+Wireframe sketch (ASCII):
+
++-------------------------------+  +-------------------------------+
+|  Bar: Nightly Rate by Prop    |  |  H-Bar: Avg Stay by Segment   |
+|  [bar1][bar2][bar3][bar4]     |  |  Canadian =====>              |
+|                               |  |  Eco-tourist ===>             |
++-------------------------------+  +-------------------------------+
++-----------------------------------------------------------+
+|  Line: Monthly Arrivals                                   |
+|  Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec          |
+|  ~Canadian travelers spike Nov-Mar~                       |
++-----------------------------------------------------------+
+
+[REWRITE IN YOUR OWN WORDS — explain why YOU chose these three
+specifically for YOUR visitor segment, not a generic reason.]
+
+
+SECTION 5: ISLAND SELECTOR UX (NEW)
+
+UI control chosen: Dropdown (<select> element).
+
+Rationale: A dropdown was chosen over tabs or a map-click because the
+Visitor Dashboard is information-dense and tabs would consume horizontal
+space on mobile screens at 375px. A dropdown collapses cleanly and matches
+the filter pattern already used in the Week 13 island card assignment.
+
+State variable: selectedIsland (useState hook in DashboardPage component).
+
+Components that re-render when selection changes:
+- ChartSection (all three charts re-filter their data arrays)
+- PropertyGrid (property cards filter by island field)
+- WeatherWidget (city name passed to OpenWeatherMap API changes)
+
+[REWRITE IN YOUR OWN WORDS — explain why dropdown fits your layout and
+your specific set of Hawaiian islands.]
+
+
+SECTION 6: WEATHER WIDGET (NEW)
+
+Placement: Top-right of the Dashboard page header, beside the island
+selector. A sidebar or header placement keeps weather contextual
+(it describes the currently selected island, not a static location).
+
+City queried: Kihei, Maui (OpenWeatherMap city ID or query: q=Kihei,HI,US).
+Default island is Maui so Kihei is the default API call.
+
+Data fields displayed:
+- Current temperature (°F and °C for Canadian visitors)
+- Weather condition description and icon
+- Humidity percentage
+- Last-updated timestamp
+
+Loading state: While the fetch is in progress, a spinner or "Loading
+weather..." placeholder renders in the widget space. On error (API
+timeout or invalid key), a fallback message reads "Weather unavailable."
+
+[REWRITE IN YOUR OWN WORDS — why Kihei specifically? Why both °F and °C?
+Why top-right placement? Be specific about your layout choice.]
+
+
+SECTION 7: DATA ARCHITECTURE (NEW)
+
+DBEDT Data Source:
+Hawaii Tourism Authority publishes monthly and annual visitor statistics
+at dbedt.hawaii.gov. The relevant CSV for this project is the Annual
+Visitor Research Report, specifically:
+
+  Fields used:
+  - VisitorOrigin (filter to "Canada")
+  - AverageNightsStayed
+  - TotalArrivals
+  - Month (for time-series chart)
+  - IslandVisited (filter to "Maui")
+
+JSON schema (converted from CSV):
+[
+  {
+    "month": "January",
+    "year": 2024,
+    "island": "Maui",
+    "origin": "Canada",
+    "totalArrivals": 12400,
+    "avgNightsStayed": 7.2
+  },
+  ...
+]
+
+Express route that serves the data:
+  GET /api/stats/visitors
+  - Optional query params: ?island=Maui&origin=Canada&year=2024
+  - Returns the JSON array above filtered by params
+  - Data is seeded from the converted CSV via a seed script in scripts/
+
+[REWRITE IN YOUR OWN WORDS — describe the actual DBEDT fields you found
+on the website, how you plan to download and convert them, and what your
+Express route will look like.]
+
+
+SECTION 8: WEEK 14–15 PLANS (NEW)
+
+Features planned for Weeks 14–15:
+1. Authentication: Simple JWT-based login for the Admin Dashboard so
+   property managers can edit listing data without exposing the form
+   publicly.
+2. Full API integration: Replace hardcoded chart data with live Express
+   API calls using useEffect and fetch.
+3. Property detail page: Clicking a card opens a full-page view with
+   larger images, a booking inquiry form, and availability hints.
+
+Open design questions still unresolved:
+- Should the weather widget update automatically on a timer or only
+  on island selection change? (Timer adds API call costs.)
+- Should visitor statistics be cached on the server or fetched fresh
+  each time the dashboard loads?
+
+[REWRITE IN YOUR OWN WORDS — what are YOUR unresolved questions? Be
+honest — instructors respect authentic uncertainty over polished fiction.]
+
+
+COMPONENT HIERARCHY DIAGRAM v2.0
+
+App
+|- MarketingPage (Week 12 — complete)
+|  |- Header
+|  |- Hero
+|  |- About
+|  |- Amenities
+|  |- CTASection
+|  |- Footer
+|
+|- DashboardPage (Week 13 addition)
+|  |- DashboardHeader
+|  |  |- IslandSelector  [selectedIsland state lives here]
+|  |  |- WeatherWidget   [receives selectedIsland as prop]
+|  |- ChartSection       [receives filtered data as props]
+|  |  |- BarChart (nightly rate)
+|  |  |- HBarChart (avg stay by segment)
+|  |  |- LineChart (monthly arrivals)
+|  |- PropertyGrid       [filtered by selectedIsland]
+|     |- PropertyCard
+|
+|- AdminDashboard (Week 14–15)
+   |- AdminPanel
+
+
+ACCEPTANCE CRITERIA (v2.0 — updated and extended)
+
+[IMPORTANT: These must be things YOU actually care about as the site owner.
+Write criteria that are personally meaningful, not generic. The instructor
+will ask you about them in Week 16.]
+
+Carry-forward from v1.0:
+1. Given a visitor lands on the site, when the Marketing Page loads,
+   then Hero, About, Amenities, and CTA are all visible without scrolling
+   on a 1280px desktop screen.
+2. Given the Visitor Dashboard requests property data, when the API
+   returns 200, then at least one property card renders within 2 seconds.
+
+New for v2.0:
+3. Given the island selector is set to "Maui", when WeatherWidget mounts,
+   then current temperature and condition display within 3 seconds using
+   a live OpenWeatherMap response.
+4. Given visitor data is loaded, when the monthly arrivals line chart
+   renders, then January–December labels appear on the x-axis and the
+   Canadian arrivals line is distinguishable from the total arrivals line.
+5. Given I am the property operator, when I view the nightly rate bar
+   chart, then I can immediately see which of my five Maui listings has
+   the highest and lowest rate without reading any numbers.
+
+[Rewrite these in your own voice — especially #3 #4 #5. Make the "given"
+conditions match YOUR project's actual behavior.]
+
+
+============================================================
+END OF PRD v2.0 DRAFT
+Word count target: 600–1000 words in your final submission after rewriting.
+Remember: every line you submit, you must be able to explain out loud.
+============================================================

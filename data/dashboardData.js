@@ -1,0 +1,75 @@
+const arrivals = [
+  { island: 'Maui', month: 'Jan', arrivals: 118000 },
+  { island: 'Maui', month: 'Feb', arrivals: 122500 },
+  { island: 'Maui', month: 'Mar', arrivals: 129200 },
+  { island: 'Maui', month: 'Apr', arrivals: 104400 },
+  { island: 'Maui', month: 'May', arrivals: 97800 },
+  { island: 'Maui', month: 'Jun', arrivals: 101300 },
+  { island: 'Maui', month: 'Jul', arrivals: 109800 },
+  { island: 'Maui', month: 'Aug', arrivals: 111200 },
+  { island: 'Maui', month: 'Sep', arrivals: 90500 },
+  { island: 'Maui', month: 'Oct', arrivals: 93400 },
+  { island: 'Maui', month: 'Nov', arrivals: 113600 },
+  { island: 'Maui', month: 'Dec', arrivals: 125400 },
+  { island: "O'ahu", month: 'Jan', arrivals: 243000 },
+  { island: "O'ahu", month: 'Feb', arrivals: 249500 },
+  { island: "O'ahu", month: 'Mar', arrivals: 257800 },
+  { island: "O'ahu", month: 'Apr', arrivals: 231400 },
+  { island: "O'ahu", month: 'May', arrivals: 224100 },
+  { island: "O'ahu", month: 'Jun', arrivals: 228800 },
+  { island: "O'ahu", month: 'Jul', arrivals: 244200 },
+  { island: "O'ahu", month: 'Aug', arrivals: 247300 },
+  { island: "O'ahu", month: 'Sep', arrivals: 211600 },
+  { island: "O'ahu", month: 'Oct', arrivals: 218500 },
+  { island: "O'ahu", month: 'Nov', arrivals: 239900 },
+  { island: "O'ahu", month: 'Dec', arrivals: 252700 },
+  { island: "Kaua'i", month: 'Jan', arrivals: 64200 },
+  { island: "Kaua'i", month: 'Feb', arrivals: 66700 },
+  { island: "Kaua'i", month: 'Mar', arrivals: 68400 },
+  { island: "Kaua'i", month: 'Apr', arrivals: 60200 },
+  { island: "Kaua'i", month: 'May', arrivals: 58500 },
+  { island: "Kaua'i", month: 'Jun', arrivals: 59800 },
+  { island: "Kaua'i", month: 'Jul', arrivals: 64200 },
+  { island: "Kaua'i", month: 'Aug', arrivals: 65000 },
+  { island: "Kaua'i", month: 'Sep', arrivals: 54100 },
+  { island: "Kaua'i", month: 'Oct', arrivals: 55200 },
+  { island: "Kaua'i", month: 'Nov', arrivals: 61300 },
+  { island: "Kaua'i", month: 'Dec', arrivals: 67900 }
+];
+
+const origins = [
+  { island: 'Maui', usDomestic: 54, japan: 8, canada: 21, otherInternational: 17 },
+  { island: "O'ahu", usDomestic: 49, japan: 17, canada: 10, otherInternational: 24 },
+  { island: "Kaua'i", usDomestic: 61, japan: 5, canada: 14, otherInternational: 20 }
+];
+
+const metrics = [
+  { island: 'Maui', adr: 325, occupancy: 78, stayDurations: [6.9, 7.2, 7.0, 7.4, 6.8] },
+  { island: "O'ahu", adr: 289, occupancy: 81, stayDurations: [5.4, 5.8, 5.6, 5.9, 5.7] },
+  { island: "Kaua'i", adr: 342, occupancy: 74, stayDurations: [6.1, 6.4, 6.0, 6.3, 6.5] }
+];
+
+const stayTrends = [
+  { island: 'Maui', year: 2021, avgStay: 6.2 },
+  { island: 'Maui', year: 2022, avgStay: 6.6 },
+  { island: 'Maui', year: 2023, avgStay: 6.9 },
+  { island: 'Maui', year: 2024, avgStay: 7.1 },
+  { island: 'Maui', year: 2025, avgStay: 7.0 },
+  { island: "O'ahu", year: 2021, avgStay: 5.0 },
+  { island: "O'ahu", year: 2022, avgStay: 5.2 },
+  { island: "O'ahu", year: 2023, avgStay: 5.5 },
+  { island: "O'ahu", year: 2024, avgStay: 5.7 },
+  { island: "O'ahu", year: 2025, avgStay: 5.6 },
+  { island: "Kaua'i", year: 2021, avgStay: 5.8 },
+  { island: "Kaua'i", year: 2022, avgStay: 6.0 },
+  { island: "Kaua'i", year: 2023, avgStay: 6.2 },
+  { island: "Kaua'i", year: 2024, avgStay: 6.4 },
+  { island: "Kaua'i", year: 2025, avgStay: 6.3 }
+];
+
+module.exports = {
+  arrivals,
+  origins,
+  metrics,
+  stayTrends
+};

@@ -1,0 +1,20 @@
+{
+  "name": "week4-hero-project",
+  "version": "1.0.0",
+  "description": "Week 4 hero project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BrycesonG",
+  "license": "ISC",
+  "dependencies": {
+    "inspirational-quotes": "^1.0.8",
+    "superheroes": "^3.0.0",
+    "supervillains": "^3.0.0",
+    "lodash": "^4.17.21",
+    "dayjs": "^1.11.9",
+    "popular-movie-quotes": "*",
+    "famous-last-words": "*"
+  }
+}

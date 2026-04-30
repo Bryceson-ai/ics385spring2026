@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials-head') %>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell nav-bar">
+        <div>
+          <p class="eyebrow">Hawaii Hospitality Dashboard</p>
+          <h1 class="brand-title">Maui Luxury Vacation Rentals</h1>
+        </div>
+        <nav class="main-nav">
+          <a href="/">Home</a>
+          <a href="/dashboard">Dashboard</a>
+          <% if (currentUser) { %>
+            <a href="/admin/dashboard">Admin</a>
+          <% } else { %>
+            <a href="/login">Login</a>
+          <% } %>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" style="background-image: linear-gradient(rgba(7, 45, 60, 0.5), rgba(7, 45, 60, 0.55)), url('<%= featuredProperty.imageURL %>');">
+        <div class="shell hero-inner">
+          <div>
+            <p class="eyebrow">Island stays designed for winter escape</p>
+            <h2><%= featuredProperty.name %></h2>
+            <p class="lead">Compare authentic Hawaii stays, weather context, and visitor demand data before you book your next Maui trip.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="/dashboard">View Dashboard</a>
+              <a class="button button-secondary" href="/login">Admin Sign In</a>
+            </div>
+          </div>
+          <aside class="hero-card">
+            <h3>Why travelers choose this brand</h3>
+            <ul>
+              <li>Curated rental inventory with amenity-first comparison</li>
+              <li>Live visitor trend dashboard across Maui, O'ahu, and Kaua'i</li>
+              <li>Protected admin tools for listing updates and quality control</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="shell section-grid">
+        <article class="panel panel-copy">
+          <p class="eyebrow">About the experience</p>
+          <h3>Built for Canadian travelers who compare comfort, location, and value fast.</h3>
+          <p>This three-page full-stack application connects a marketing page, a visitor dashboard, and a protected admin interface in one deployable experience backed by MongoDB.</p>
+        </article>
+        <article class="panel panel-copy">
+          <p class="eyebrow">Featured amenities</p>
+          <div class="amenity-list">
+            <% amenities.forEach((amenity) => { %>
+              <span class="amenity-pill"><%= amenity %></span>
+            <% }) %>
+          </div>
+        </article>
+      </section>
+
+      <section class="shell property-highlight">
+        <div class="panel property-card-wide">
+          <img src="<%= featuredProperty.imageURL %>" alt="<%= featuredProperty.name %> hero image" />
+          <div>
+            <p class="eyebrow"><%= featuredProperty.island %> • <%= featuredProperty.type %></p>
+            <h3><%= featuredProperty.name %></h3>
+            <p><%= featuredProperty.description %></p>
+            <p class="muted">Target segment: <%= featuredProperty.targetSegment %></p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

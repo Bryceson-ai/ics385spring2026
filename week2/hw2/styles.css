@@ -1,0 +1,58 @@
+:root{
+  --bg: #f7fcfb;
+  --muted: #40514e;
+  --accent: #11999e;
+  --teal: #66bfbf;
+  --soft: #eaf6f6;
+  --max-width: 980px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  color:var(--muted);
+  font-family: "Merriweather", Georgia, serif;
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+/* Header */
+.top-container{background:linear-gradient(180deg, #f1fbfa 0%, #e6f7f6 100%);padding:48px 0}
+.title-text h1{font-family:"Montserrat", "Sacramento", sans-serif;font-weight:600;color:var(--muted);font-size:2.4rem;margin:0}
+.eyebrow{color:var(--accent);margin-top:8px;font-weight:500}
+
+/* Sections */
+.middle-container{padding:48px 0}
+.profile h2,.skills h2{font-family:"Montserrat",sans-serif;color:var(--teal);font-size:1.6rem;margin-bottom:12px}
+h3{font-family:"Montserrat",sans-serif;color:var(--accent);margin-top:0}
+p{line-height:1.6;margin:0 0 16px 0}
+
+.section-sep{border:0;height:1px;background:linear-gradient(to right,transparent,var(--soft),transparent);margin:36px 0}
+
+/* Intro width responsive */
+.intro{max-width:62ch;margin:0 auto;color:var(--muted);}
+
+/* Grid for paired content */
+.parent{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin-top:24px}
+.feature-img{width:100%;height:auto;border-radius:8px;box-shadow:0 6px 18px rgba(16,24,32,0.08);display:block}
+
+.coding,.hot-wings{padding:8px 0}
+
+/* Footer */
+.bottom-container{background:var(--teal);color:var(--soft);padding:20px 0;margin-top:40px}
+.copyright{margin:0;font-size:.9rem}
+
+/* Buttons (kept for future use) */
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-family:"Montserrat",sans-serif}
+
+/* Responsive adjustments */
+@media (max-width:800px){
+  .parent{grid-template-columns:1fr;}
+  .title-text h1{font-size:1.6rem}
+  .middle-container{padding:28px 0}
+  .intro{padding:0 8px}
+}

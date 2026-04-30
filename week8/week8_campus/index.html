@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UH Maui College - Campus Dashboard</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<header class="dashboard-header">
+		<div class="header-content">
+			<h1>UH Maui College Campus Dashboard</h1>
+			<div class="header-controls">
+				<button id="settingsBtn" class="header-btn">Settings</button>
+				<button id="refreshAllBtn" class="header-btn">Refresh All</button>
+			</div>
+		</div>
+	</header>
+
+	<main id="dashboard-container" class="dashboard-grid">
+		<section class="stats-overview">
+			<div class="stat-card">
+				<span class="stat-number" id="total-courses">0</span>
+				<span class="stat-label">Courses</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number" id="total-students">0</span>
+				<span class="stat-label">Students</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number" id="avg-capacity">0%</span>
+				<span class="stat-label">Avg Capacity</span>
+			</div>
+			<div class="stat-card">
+				<span class="stat-number" id="api-status">Checking...</span>
+				<span class="stat-label">API Status</span>
+			</div>
+		</section>
+
+		<section id="weather-widget" class="dashboard-widget weather-widget">
+			<div class="loading">Loading weather...</div>
+		</section>
+
+		<section class="dashboard-widget course-widget">
+			<div class="widget-header">
+				<h3>Course Management</h3>
+			</div>
+			<div class="widget-controls">
+				<input type="text" id="courseSearch" placeholder="Search by code, title, instructor, topic...">
+				<select id="departmentFilter">
+					<option value="all">All Departments</option>
+				</select>
+			</div>
+			<div id="coursesContainer" class="courses-grid">
+				<div class="loading">Loading courses...</div>
+			</div>
+		</section>
+
+		<section id="humor-widget" class="dashboard-widget humor-widget">
+			<div class="loading">Loading jokes...</div>
+		</section>
+
+		<section class="dashboard-widget actions-widget">
+			<div class="widget-header">
+				<h3>Quick Actions</h3>
+			</div>
+			<div class="actions-grid">
+				<button class="action-btn" id="addCourseBtn">Add Course</button>
+				<button class="action-btn" id="exportBtn">Export Data</button>
+				<button class="action-btn" id="refreshWeatherBtn">Update Weather</button>
+				<button class="action-btn" id="refreshHumorBtn">New Jokes</button>
+			</div>
+		</section>
+	</main>
+
+	<div id="apiKeyModal" class="modal hidden">
+		<div class="modal-content">
+			<h2>API Configuration Required</h2>
+			<p>Enter API keys for OpenWeatherMap and RapidAPI. Keys are saved in localStorage for local development only.</p>
+			<div class="form-grid">
+				<label for="openWeatherKey">OpenWeatherMap API Key</label>
+				<input type="password" id="openWeatherKey" placeholder="Enter OpenWeatherMap key">
+				<label for="rapidApiKey">RapidAPI Key</label>
+				<input type="password" id="rapidApiKey" placeholder="Enter RapidAPI key">
+			</div>
+			<div class="modal-actions">
+				<button id="saveApiKeysBtn" class="save-btn">Save Keys</button>
+				<button id="skipApiKeysBtn" class="secondary-btn">Skip</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="courseModal" class="modal hidden">
+		<div class="modal-content">
+			<h2 id="courseModalTitle">Add Course</h2>
+			<form id="courseForm" class="form-grid">
+				<input type="hidden" id="courseEditId">
+				<label for="courseDepartment">Department</label>
+				<select id="courseDepartment" required></select>
+
+				<label for="courseCode">Course Code</label>
+				<input id="courseCode" required>
+
+				<label for="courseTitle">Title</label>
+				<input id="courseTitle" required>
+
+				<label for="courseCredits">Credits</label>
+				<input id="courseCredits" type="number" min="1" max="6" value="3" required>
+
+				<label for="courseInstructor">Instructor</label>
+				<input id="courseInstructor" required>
+
+				<label for="courseEmail">Instructor Email</label>
+				<input id="courseEmail" type="email" required>
+
+				<label for="courseCapacity">Capacity</label>
+				<input id="courseCapacity" type="number" min="1" value="25" required>
+
+				<label for="courseEnrolled">Enrolled</label>
+				<input id="courseEnrolled" type="number" min="0" value="0" required>
+
+				<label for="courseTopics">Topics (comma-separated)</label>
+				<input id="courseTopics" placeholder="APIs, JSON, JavaScript" required>
+
+				<label for="courseDescription">Description</label>
+				<textarea id="courseDescription" rows="3" required></textarea>
+
+				<div class="modal-actions">
+					<button type="submit" class="save-btn">Save Course</button>
+					<button type="button" id="cancelCourseBtn" class="secondary-btn">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<footer>
+		<p>ICS 385 Week 8 - Intermediate Assignment | Multi-API Dashboard</p>
+	</footer>
+
+	<script src="config.js"></script>
+	<script src="api-client.js"></script>
+	<script src="course-catalog.js"></script>
+	<script src="dashboard.js"></script>
+</body>
+</html>
