@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials-head') %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header class="site-header compact-header">
+      <div class="shell nav-bar">
+        <div>
+          <p class="eyebrow">Visitor Dashboard</p>
+          <h1 class="brand-title">Tourism Demand Snapshot</h1>
+        </div>
+        <nav class="main-nav">
+          <a href="/">Marketing Page</a>
+          <a href="/login">Admin Login</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell dashboard-page">
+      <section class="panel dashboard-intro">
+        <div>
+          <p class="eyebrow">Current featured property</p>
+          <h2><%= featuredProperty.name %> Performance Snapshot</h2>
+          <p>Use the selector below to compare demand and visitor behavior by island. Charts and KPI cards are loaded from Express API routes.</p>
+        </div>
+        <div class="dashboard-controls">
+          <label for="island-select">Select island</label>
+          <select id="island-select">
+            <% islandOptions.forEach((island) => { %>
+              <option value="<%= island %>" <%= island === featuredProperty.island ? 'selected' : '' %>><%= island %></option>
+            <% }) %>
+          </select>
+        </div>
+      </section>
+
+      <section class="metrics-grid" id="metrics-grid" aria-label="Dashboard KPIs">
+        <article class="panel metric-card"><p class="eyebrow">ADR</p><strong id="metric-adr">--</strong></article>
+        <article class="panel metric-card"><p class="eyebrow">Occupancy</p><strong id="metric-occupancy">--</strong></article>
+        <article class="panel metric-card"><p class="eyebrow">Avg Length of Stay</p><strong id="metric-stay">--</strong></article>
+        <article class="panel metric-card"><p class="eyebrow">Weather</p><strong id="metric-weather">Loading...</strong></article>
+      </section>
+
+      <section class="charts-grid">
+        <article class="panel chart-card">
+          <h3>Monthly Arrivals</h3>
+          <canvas id="arrivals-chart"></canvas>
+        </article>
+        <article class="panel chart-card">
+          <h3>Visitor Origin Mix</h3>
+          <canvas id="origins-chart"></canvas>
+        </article>
+        <article class="panel chart-card">
+          <h3>Average Length of Stay Trend</h3>
+          <canvas id="trend-chart"></canvas>
+        </article>
+      </section>
+    </main>
+
+    <script src="/scripts/dashboard.js"></script>
+  </body>
+</html>
